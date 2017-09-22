@@ -3,7 +3,7 @@
 Select your favorite color and drive your MINI Cooper S though a huge pile of boxes.
 Note that this is a personal project and is not directly related to [MINI](https://www.mini.co.uk).
 
-Initially this projects started out as a basic research project to learn WebGL: How to export models from [Blender](https://www.blender.org/), import them in [Three.js](https://threejs.org), assign materials, create lights, etc. However, along the way I stumbled upon this fascinating [Ammo.js vehicle example](http://kripken.github.io/ammo.js/examples/webgl_demo_vehicle/index.html) and decided to use that as a base for this demo.
+Initially this projects started out as a basic research project to learn WebGL: How to export models from [Blender](https://www.blender.org), import them in [Three.js](https://threejs.org), assign materials, create lights, etc. However, along the way I stumbled upon this fascinating [Ammo.js vehicle example](http://kripken.github.io/ammo.js/examples/webgl_demo_vehicle/index.html) and decided to use that as a base for this demo.
 
 I also wanted this demo to work on an iPhone or iPad, so I've created two quality levels: 
 **(1)** A low quality mode that has no antialiasing, no shadows and uses a low-poly model. 
@@ -11,7 +11,7 @@ I also wanted this demo to work on an iPhone or iPad, so I've created two qualit
 The mobile version automatically selects the low quality mode and displays a overlay with touch controls, allowing you to drive the car around using your mobile as a gamepad. 
 
 **Some technical details:**
-- Model via [CG Trader](https://www.cgtrader.com/)
+- Model via [CG Trader](https://www.cgtrader.com)
 - Written in [TypeScript](https://www.typescriptlang.org)
 - WebGL via [Three.js](https://threejs.org)
 - Physics via [Ammo.js](https://github.com/kripken/ammo.js)
