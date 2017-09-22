@@ -1,0 +1,6 @@
+deploy
+node_modules
+.idea
+.vscode
+*.iml
+*.log

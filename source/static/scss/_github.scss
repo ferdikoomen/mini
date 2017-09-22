@@ -1,0 +1,21 @@
+#github {
+	display: block;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 99;
+	width: 80px;
+	height: 80px;
+	transform-origin: 50% 50%;
+	transition: transform 250ms ease;
+
+	> svg {
+		fill: white;
+	}
+
+	&:hover {
+		transform: scale(1.2, 1.2);
+	}
+}

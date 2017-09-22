@@ -1,0 +1,50 @@
+#controls-drive-steer {
+	bottom: 30px;
+	left: 30px;
+	width: 180px;
+
+	&:before {
+		content: "⇦";
+		left: 5px;
+	}
+
+	&:after {
+		content: "⇨";
+		left: 115px;
+	}
+}
+
+#controls-drive-accelerate {
+	bottom: 30px;
+	right: 30px;
+	height: 180px;
+
+	&:before {
+		content: "⇧";
+		top: 5px;
+	}
+
+	&:after {
+		content: "⇩";
+		top: 115px;
+	}
+}
+
+#controls-drive-reset {
+	top: 30px;
+	right: 30px;
+
+	&:before {
+		content: "↺";
+	}
+}
+
+#controls-drive-info {
+	bottom: 30px;
+	width: 440px;
+	font-size: 20px;
+	font-family: "Mini-Regular", Helvetica, arial, sans-serif;
+	text-transform: uppercase;
+	left: 50%;
+	margin-left: -220px;
+}
