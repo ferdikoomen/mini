@@ -4,10 +4,10 @@
 	"description": "WebGL demo of a MINI Cooper",
 	"author": "Ferdi Koomen",
 	"homepage": "https://mini.madebyferdi.com",
-	"license" : "MIT",
+	"license": "MIT",
 	"scripts": {
 		"clean": "npm cache clean --force && rimraf node_modules doc deploy",
-		"update": "ncu --upgrade --packageFile package.json",
+		"upgrade": "ncu --upgrade --packageFile package.json",
 		"build": "webpack --config webpack.dev.config.js",
 		"build:server": "webpack-dev-server --config webpack.dev.config.js",
 		"release": "webpack -p --config webpack.prod.config.js",
