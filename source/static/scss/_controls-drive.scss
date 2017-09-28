@@ -43,7 +43,8 @@
 	bottom: 30px;
 	width: 440px;
 	font-size: 20px;
-	font-family: "Mini-Regular", Helvetica, arial, sans-serif;
+	font-family: $font-family;
+	font-weight: 600;
 	text-transform: uppercase;
 	left: 50%;
 	margin-left: -220px;

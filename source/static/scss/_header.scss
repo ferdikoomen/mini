@@ -18,9 +18,9 @@
 	}
 
 	h1 {
-		font-family: "Mini-Regular", Helvetica, arial, sans-serif;
+		font-family: $font-family;
+		font-weight: 700;
 		font-size: 18px;
-		font-weight: normal;
 		line-height: 1;
 		text-transform: uppercase;
 		user-select: none;
@@ -38,9 +38,7 @@
 
 		span:last-child {
 			display: block;
-			font-family: "Mini-Headline", Helvetica, arial, sans-serif;
 			font-size: 40px;
-			font-weight: normal;
 			color: white;
 
 			@media screen and (min-width: 1024px) {

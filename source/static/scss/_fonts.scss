@@ -1,19 +1,28 @@
-@font-face {
-	font-family: "Mini-Headline";
-	src: url("../fonts/minihd-webfont.eot");
-	src: url("../fonts/minihd-webfont.eot") format("embedded-opentype"),
-	url("../fonts/minihd-webfont.woff") format("woff"),
-	url("../fonts/minihd-webfont.ttf") format("truetype");
-	font-weight: normal;
-	font-style: normal;
+@mixin font-import($font-family, $font-path, $font-weight: normal, $font-style: normal, $font-stretch: normal) {
+	@font-face {
+		font-family: $font-family;
+		font-weight: $font-weight;
+		font-style: $font-style;
+		font-stretch: $font-stretch;
+		src: url("#{$font-path}.eot") format("embedded-opentype"),
+		url("#{$font-path}.woff2") format("woff2"),
+		url("#{$font-path}.woff") format("woff"),
+		url("#{$font-path}.otf") format("opentype"),
+		url("#{$font-path}.ttf") format("truetype");
+	}
 }
 
-@font-face {
-	font-family: "Mini-Regular";
-	src: url("../fonts/minirg-webfont.eot");
-	src: url("../fonts/minirg-webfont.eot") format("embedded-opentype"),
-	url("../fonts/minirg-webfont.woff") format("woff"),
-	url("../fonts/minirg-webfont.ttf") format("truetype");
-	font-weight: normal;
-	font-style: normal;
-}
+@include font-import("Source Sans Pro", "../fonts/source-sans-pro/SourceSansPro-ExtraLight", 200, normal, normal);
+@include font-import("Source Sans Pro", "../fonts/source-sans-pro/SourceSansPro-ExtraLightIt", 200, italic, normal);
+@include font-import("Source Sans Pro", "../fonts/source-sans-pro/SourceSansPro-Light", 300, normal, normal);
+@include font-import("Source Sans Pro", "../fonts/source-sans-pro/SourceSansPro-LightIt", 300, italic, normal);
+@include font-import("Source Sans Pro", "../fonts/source-sans-pro/SourceSansPro-Regular", 400, normal, normal);
+@include font-import("Source Sans Pro", "../fonts/source-sans-pro/SourceSansPro-It", 400, italic, normal);
+@include font-import("Source Sans Pro", "../fonts/source-sans-pro/SourceSansPro-Semibold", 600, normal, normal);
+@include font-import("Source Sans Pro", "../fonts/source-sans-pro/SourceSansPro-SemiboldIt", 600, italic, normal);
+@include font-import("Source Sans Pro", "../fonts/source-sans-pro/SourceSansPro-Bold", 700, normal, normal);
+@include font-import("Source Sans Pro", "../fonts/source-sans-pro/SourceSansPro-BoldIt", 700, italic, normal);
+@include font-import("Source Sans Pro", "../fonts/source-sans-pro/SourceSansPro-Black", 900, normal, normal);
+@include font-import("Source Sans Pro", "../fonts/source-sans-pro/SourceSansPro-BlackIt", 900, italic, normal);
+
+$font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
