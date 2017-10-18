@@ -22,9 +22,9 @@ The mobile version automatically selects the low-quality mode and displays an ov
 <img src="screenshots/screenshot-desktop-2.png" alt="" width="896">
 <img src="screenshots/screenshot-desktop-3.png" alt="" width="896">
 <img src="screenshots/screenshot-desktop-4.png" alt="" width="896">
-<img src="screenshots/screenshot-mobile-1.png" alt="" width="500">
-<img src="screenshots/screenshot-mobile-2.png" alt="" width="500">
-<img src="screenshots/screenshot-mobile-3.png" alt="" width="500">
+<img src="screenshots/screenshot-mobile-1.png" alt="" width="896">
+<img src="screenshots/screenshot-mobile-2.png" alt="" width="896">
+<img src="screenshots/screenshot-mobile-3.png" alt="" width="896">
 
 ## Demo
 - https://mini.madebyferdi.com
