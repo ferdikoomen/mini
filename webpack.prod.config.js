@@ -6,6 +6,7 @@ const autoprefixer = require("autoprefixer");
 const cssnano = require("cssnano");
 
 const BrotliGzipPlugin = require("brotli-gzip-webpack-plugin");
+const CircularDependencyPlugin = require("circular-dependency-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -115,6 +116,10 @@ module.exports = {
 		}),
 		new CleanWebpackPlugin(["deploy"], {
 			verbose: true
+		}),
+		new CircularDependencyPlugin({
+			exclude: /node_modules/,
+			failOnError: false
 		}),
 		new HtmlWebpackPlugin({
 			template: "source/index.ejs",

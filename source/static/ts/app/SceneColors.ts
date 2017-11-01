@@ -5,7 +5,6 @@ import * as TWEEN from "@tweenjs/tween.js";
 import {ThreeAssets} from "./ThreeAssets";
 import {ThreeMaterialsPaint} from "./ThreeMaterialsPaint";
 import {ThreeMaterialsScene} from "./ThreeMaterialsScene";
-import {ControlsSelectColor} from "./ControlsSelectColor";
 import {Settings} from "./Settings";
 
 
@@ -113,7 +112,7 @@ export class SceneColors {
 	public static hide(): Promise<void> {
 		return new Promise<void>(
 			(resolve: () => void): void => {
-				const index: number = ControlsSelectColor.index;
+				const index: number = Settings.color;
 				const mesh: THREE.Mesh = this.items[index];
 
 				const max: number = Math.abs(12 - index);

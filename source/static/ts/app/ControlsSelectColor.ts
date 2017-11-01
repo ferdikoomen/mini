@@ -20,9 +20,6 @@ export class ControlsSelectColor {
 	private static tweenPosition: TWEEN.Tween;
 
 
-	public static index: number = 6; // White
-
-
 	public static wait(): Promise<void> {
 		return new Promise<void>(
 			(resolve: () => void): void => {
@@ -65,14 +62,14 @@ export class ControlsSelectColor {
 
 
 	private static animate(step: number): void {
-		this.index += step;
-		this.index = Math.max(this.index, 0);
-		this.index = Math.min(this.index, 12);
+		Settings.color += step;
+		Settings.color = Math.max(Settings.color, 0);
+		Settings.color = Math.min(Settings.color, 12);
 
-		this.elementNext.className = this.index > 0 ? "show" : "";
-		this.elementPrev.className = this.index < 12 ? "show" : "";
+		this.elementNext.className = Settings.color > 0 ? "show" : "";
+		this.elementPrev.className = Settings.color < 12 ? "show" : "";
 
-		const colorMesh: THREE.Mesh = SceneColors.items[this.index];
+		const colorMesh: THREE.Mesh = SceneColors.items[Settings.color];
 		const colorMaterial: THREE.MeshPhysicalMaterial = <THREE.MeshPhysicalMaterial> colorMesh.material;
 
 		ThreeMaterialsScene.road.color.r = colorMaterial.color.r;
