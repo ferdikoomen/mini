@@ -1,0 +1,16 @@
+{
+	"alt-require": true,
+	"attr-lowercase": true,
+	"attr-no-duplication": true,
+	"attr-value-double-quotes": true,
+	"attr-value-not-empty": true,
+	"id-unique": true,
+	"inline-script-disabled": true,
+	"inline-style-disabled": true,
+	"space-tab-mixed-disabled": "tab",
+	"spec-char-escape": true,
+	"src-not-empty": true,
+	"tag-pair": true,
+	"tag-self-close": true,
+	"tagname-lowercase": true
+}

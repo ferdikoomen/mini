@@ -3,7 +3,7 @@
 	margin-top: -30px;
 	left: 30px;
 
-	&:before {
+	&::before {
 		content: "⇦";
 	}
 }
@@ -13,7 +13,7 @@
 	margin-top: -30px;
 	right: 30px;
 
-	&:before {
+	&::before {
 		content: "⇨";
 	}
 }

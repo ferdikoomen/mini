@@ -1,0 +1,25 @@
+{
+	"extends": [
+		"stylelint-config-standard",
+		"stylelint-config-recommended",
+		"stylelint-config-recommended-scss"
+	],
+	"rules": {
+		"indentation": "tab",
+		"string-quotes": "double",
+		"font-family-name-quotes": "always-where-recommended",
+		"unit-whitelist": ["px", "%", "rem", "vw", "vh", "deg", "ms", "s"],
+		"color-hex-case": "upper",
+		"color-hex-length": "long",
+		"block-closing-brace-newline-before": null,
+		"block-closing-brace-newline-after": null,
+		"property-no-vendor-prefix": null,
+		"selector-no-vendor-prefix": null,
+		"value-no-vendor-prefix": null,
+		"rule-empty-line-before": null,
+		"at-rule-empty-line-before": null,
+		"number-leading-zero": "always",
+		"number-no-trailing-zeros": null,
+		"block-closing-brace-empty-line-before": null
+	}
+}

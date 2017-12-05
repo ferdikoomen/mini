@@ -13,6 +13,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackAlterAssetPlugin = require("html-webpack-alter-asset-plugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const StyleExtHtmlWebpackPlugin = require("style-ext-html-webpack-plugin");
+const StyleLintPlugin = require("stylelint-webpack-plugin");
 const Visualizer = require("webpack-visualizer-plugin");
 
 module.exports = {
@@ -47,6 +48,11 @@ module.exports = {
 		}, {
 			test: /\.ts$/,
 			loader: "ts-loader"
+		}, {
+			enforce: "pre",
+			test: /\.html/,
+			exclude: /node_modules/,
+			loader: "htmlhint-loader"
 		}, {
 			test: /\.scss$/,
 			loader: ExtractTextPlugin.extract({
@@ -116,6 +122,9 @@ module.exports = {
 		}),
 		new CleanWebpackPlugin(["deploy"], {
 			verbose: true
+		}),
+		new StyleLintPlugin({
+			syntax: "scss"
 		}),
 		new CircularDependencyPlugin({
 			exclude: /node_modules/,

@@ -52,8 +52,8 @@
 		opacity: 1;
 	}
 
-	&:before,
-	&:after {
+	&::before,
+	&::after {
 		display: block;
 		position: absolute;
 		top: -2px;

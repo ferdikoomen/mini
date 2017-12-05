@@ -3,12 +3,12 @@
 	left: 30px;
 	width: 180px;
 
-	&:before {
+	&::before {
 		content: "⇦";
 		left: 5px;
 	}
 
-	&:after {
+	&::after {
 		content: "⇨";
 		left: 115px;
 	}
@@ -19,12 +19,12 @@
 	right: 30px;
 	height: 180px;
 
-	&:before {
+	&::before {
 		content: "⇧";
 		top: 5px;
 	}
 
-	&:after {
+	&::after {
 		content: "⇩";
 		top: 115px;
 	}
@@ -34,7 +34,7 @@
 	top: 30px;
 	right: 30px;
 
-	&:before {
+	&::before {
 		content: "↺";
 	}
 }
