@@ -17,15 +17,10 @@ export class ControlsSelectQuality {
 				this.elementHigh = document.getElementById("controls-quality-high");
 				this.elementGo = document.getElementById("controls-quality-go");
 
-				if (!Settings.mobile) {
-					this.elementLow.className = "show";
-					this.elementHigh.className = "show";
-					this.elementLow.addEventListener("click", () => this.select(false, resolve), false);
-					this.elementHigh.addEventListener("click", () => this.select(true, resolve), false);
-				} else {
-					this.elementGo.className = "show";
-					this.elementGo.addEventListener("click", () => this.select(false, resolve), false);
-				}
+				this.elementLow.className = "show";
+				this.elementHigh.className = "show";
+				this.elementLow.addEventListener("click", () => this.select(false, resolve), false);
+				this.elementHigh.addEventListener("click", () => this.select(true, resolve), false);
 			});
 	}
 
