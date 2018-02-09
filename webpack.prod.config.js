@@ -8,13 +8,14 @@ const cssnano = require("cssnano");
 const BrotliGzipPlugin = require("brotli-gzip-webpack-plugin");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackAlterAssetPlugin = require("html-webpack-alter-asset-plugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const StyleExtHtmlWebpackPlugin = require("style-ext-html-webpack-plugin");
 const StyleLintPlugin = require("stylelint-webpack-plugin");
-const Visualizer = require("webpack-visualizer-plugin");
 
 module.exports = {
 
@@ -30,7 +31,7 @@ module.exports = {
 	},
 
 	entry: {
-		main: "./source/static/ts/main.ts"
+		main: "./src/static/ts/main.ts"
 	},
 
 	output: {
@@ -97,11 +98,11 @@ module.exports = {
 			loader: "file-loader?publicPath=/&outputPath=static/gfx/&name=[name].[hash:8].[ext]"
 		}, {
 			test: /\.js$/,
-			include: path.join(process.cwd(), "source/static/js"),
+			include: path.join(process.cwd(), "src/static/js"),
 			loader: "file-loader?publicPath=/&outputPath=static/js/&name=[name].[hash:8].[ext]"
 		}, {
 			test: /\.json/,
-			include: path.join(process.cwd(), "source/static/models"),
+			include: path.join(process.cwd(), "src/static/models"),
 			loader: "file-loader?publicPath=/&outputPath=static/models/&name=[name].[hash:8].[ext]"
 		}, {
 			test: /\.html$/,
@@ -110,8 +111,17 @@ module.exports = {
 	},
 
 	plugins: [
+		new HardSourceWebpackPlugin({
+			cacheDirectory: "../node_modules/.cache/hard-source/[confighash]",
+			recordsPath: "../node_modules/.cache/hard-source/[confighash]/records.json",
+			environmentHash: {
+				root: process.cwd(),
+				directories: [],
+				files: ["package-lock.json", "yarn.lock"],
+			},
+		}),
 		new webpack.NoEmitOnErrorsPlugin(),
-		new webpack.ProgressPlugin(),
+		// new webpack.ProgressPlugin(),
 		new webpack.DefinePlugin({
 			"process.env": {
 				"PRODUCTION": JSON.stringify(true)
@@ -123,6 +133,13 @@ module.exports = {
 		new CleanWebpackPlugin(["deploy"], {
 			verbose: true
 		}),
+		new CopyWebpackPlugin([{
+			from: "src/robots.txt",
+			to: "."
+		}, {
+			from: "src/sitemap.xml",
+			to: "."
+		}]),
 		new StyleLintPlugin({
 			syntax: "scss"
 		}),
@@ -131,7 +148,7 @@ module.exports = {
 			failOnError: false
 		}),
 		new HtmlWebpackPlugin({
-			template: "source/index.ejs",
+			template: "src/index.ejs",
 			filename: "index.html",
 			hash: false,
 			inject: true,
@@ -165,6 +182,7 @@ module.exports = {
 		new HtmlWebpackAlterAssetPlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(true),
 		new webpack.optimize.UglifyJsPlugin({
+			parallel: true,
 			sourceMap: false,
 			mangle: true,
 			output: {
@@ -200,9 +218,6 @@ module.exports = {
 			test: /\.(json|js|css|svg)$/,
 			threshold: 0,
 			minRatio: 0.8
-		}),
-		new Visualizer({
-			filename: "statistics.html"
 		})
 	],
 

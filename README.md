@@ -45,6 +45,13 @@ The mobile version automatically selects the low-quality mode and displays an ov
 - [Emscripten](http://kripken.github.io/emscripten-site)
 - [Ammo.js](https://github.com/kripken/ammo.js)
 
+## Install
+We use Yarn package manager to manage our dependencies. 
+```shell
+curl -o- -L https://yarnpkg.com/install.sh | bash
+yarn install
+```
+
 ## Run
 ```shell
 npm run build:server
