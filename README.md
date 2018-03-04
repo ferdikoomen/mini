@@ -47,18 +47,18 @@ The mobile version automatically selects the low-quality mode and displays an ov
 
 ## Install
 We use Yarn package manager to manage our dependencies. 
-```shell
+```bash
 curl -o- -L https://yarnpkg.com/install.sh | bash
 yarn install
 ```
 
 ## Run
-```shell
+```bash
 npm run build:server
 ```
 Server will run on [localhost](http://localhost:8080)
 
 ## Release
-```shell
+```bash
 npm run release
 ```
