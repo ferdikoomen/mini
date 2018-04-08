@@ -63,8 +63,6 @@ export default class Application {
 			}, 100);
 		}, false);
 
-		this.loop();
-
 		await Promise.all([
 			SceneColors.load(Preloader.manager),
 			CarBody.load(Preloader.manager),
@@ -87,6 +85,8 @@ export default class Application {
 
 		ThreeCamera.camera.position.set(0, 100, 28);
 		ThreeCamera.target.position.set(0, 100, 0);
+
+		this.loop();
 
 		await animateFog(ThreeStage.fog, 100, 250, 2000);
 
