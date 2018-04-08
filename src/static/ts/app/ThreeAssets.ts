@@ -1,10 +1,10 @@
 import * as THREE from "three";
 
 
-export class ThreeAssets {
+export default class ThreeAssets {
 
 
-	public static load(manager: THREE.LoadingManager, urls: string[]): Promise<THREE.BufferGeometry> {
+	public static async load(manager: THREE.LoadingManager, urls: string[]): Promise<THREE.BufferGeometry> {
 		return new Promise<THREE.BufferGeometry>(
 			(resolve: (value: THREE.BufferGeometry) => void): void => {
 

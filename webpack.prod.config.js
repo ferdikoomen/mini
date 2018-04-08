@@ -35,7 +35,8 @@ module.exports = {
 	},
 
 	output: {
-		path: path.join(process.cwd(), "deploy"),
+		pathinfo: true,
+		path: path.resolve(process.cwd(), "deploy"),
 		filename: "static/js/[name].[hash:8].bundle.js",
 		chunkFilename: "static/js/[id].[hash:8].chunk.js"
 	},
@@ -51,7 +52,7 @@ module.exports = {
 			loader: "ts-loader"
 		}, {
 			enforce: "pre",
-			test: /\.html/,
+			test: /\.html$/,
 			exclude: /node_modules/,
 			loader: "htmlhint-loader"
 		}, {
@@ -98,11 +99,11 @@ module.exports = {
 			loader: "file-loader?publicPath=/&outputPath=static/gfx/&name=[name].[hash:8].[ext]"
 		}, {
 			test: /\.js$/,
-			include: path.join(process.cwd(), "src/static/js"),
+			include: path.resolve(process.cwd(), "src/static/js"),
 			loader: "file-loader?publicPath=/&outputPath=static/js/&name=[name].[hash:8].[ext]"
 		}, {
-			test: /\.json/,
-			include: path.join(process.cwd(), "src/static/models"),
+			test: /\.json$/,
+			include: path.resolve(process.cwd(), "src/static/models"),
 			loader: "file-loader?publicPath=/&outputPath=static/models/&name=[name].[hash:8].[ext]"
 		}, {
 			test: /\.html$/,
@@ -113,15 +114,13 @@ module.exports = {
 	plugins: [
 		new HardSourceWebpackPlugin({
 			cacheDirectory: "../node_modules/.cache/hard-source/[confighash]",
-			recordsPath: "../node_modules/.cache/hard-source/[confighash]/records.json",
 			environmentHash: {
 				root: process.cwd(),
 				directories: [],
-				files: ["package-lock.json", "yarn.lock"],
+				files: ["package-lock.json", "yarn.lock", "webpack.prod.config.js"],
 			},
 		}),
 		new webpack.NoEmitOnErrorsPlugin(),
-		// new webpack.ProgressPlugin(),
 		new webpack.DefinePlugin({
 			"process.env": {
 				"PRODUCTION": JSON.stringify(true)
@@ -133,13 +132,12 @@ module.exports = {
 		new CleanWebpackPlugin(["deploy"], {
 			verbose: true
 		}),
-		new CopyWebpackPlugin([{
-			from: "src/robots.txt",
-			to: "."
-		}, {
-			from: "src/sitemap.xml",
-			to: "."
-		}]),
+		new CopyWebpackPlugin([
+			{from: "src/robots.txt", to: "."},
+			{from: "src/sitemap.xml", to: "."},
+			{from: "src/static/js/*.*", to: "./static/js/", flatten: true},
+			{from: "node_modules/three/build/three.min.js", to: "./static/js/", flatten: true}
+		]),
 		new StyleLintPlugin({
 			syntax: "scss"
 		}),
@@ -155,11 +153,6 @@ module.exports = {
 			compile: true,
 			cache: true,
 			showErrors: true,
-			chunks: [
-				"main"
-			],
-			chunksSortMode: "manual",
-			xhtml: true,
 			minify: {
 				html5: true,
 				caseSensitive: true,
@@ -168,7 +161,11 @@ module.exports = {
 				lint: false,
 				minifyJS: true,
 				minifyCSS: true
-			}
+			},
+			chunksSortMode: "manual",
+			chunks: [
+				"main"
+			]
 		}),
 		new ExtractTextPlugin({
 			filename: "static/css/[name].[hash:8].css"
@@ -203,7 +200,8 @@ module.exports = {
 				properties: true,
 				screw_ie8: true,
 				sequences: true,
-				unused: true
+				unused: true,
+				warnings: false
 			}
 		}),
 		new webpack.optimize.ModuleConcatenationPlugin(),
@@ -237,12 +235,5 @@ module.exports = {
 		aggregateTimeout: 300,
 		poll: 1000,
 		ignored: /node_modules|deploy/
-	},
-
-	devServer: {
-		port: 8080,
-		host: "0.0.0.0",
-		historyApiFallback: true,
-		disableHostCheck: true
 	}
 };

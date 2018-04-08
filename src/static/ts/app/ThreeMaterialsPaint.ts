@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 
-export class ThreeMaterialsPaint {
+export default class ThreeMaterialsPaint {
 
 
 	public static vocanicOrange: THREE.MeshPhysicalMaterial;

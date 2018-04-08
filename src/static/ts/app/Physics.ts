@@ -1,12 +1,13 @@
 import * as THREE from "three";
 
 
-import {Settings} from "./Settings";
+import Settings from "./Settings";
 
 
-export class Physics {
+export default class Physics {
 
 
+	public static world: Ammo.btDiscreteDynamicsWorld;
 	private static enabled: boolean = false;
 	private static pause: boolean = false;
 	private static subSteps: number;
@@ -16,10 +17,6 @@ export class Physics {
 	private static solver: Ammo.btSequentialImpulseConstraintSolver;
 	private static delta: number = 0;
 	private static clock: THREE.Clock;
-
-
-	public static world: Ammo.btDiscreteDynamicsWorld;
-
 
 	public static init(): void {
 

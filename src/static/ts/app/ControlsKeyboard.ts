@@ -1,13 +1,13 @@
-import {Physics} from "./Physics";
-import {CarPhysics} from "./CarPhysics";
-import {ThreeMaterialsBody} from "./ThreeMaterialsBody";
-import {ThreeMaterialsWheels} from "./ThreeMaterialsWheels";
-import {ThreeTextures} from "./ThreeTextures";
-import {Settings} from "./Settings";
+import Physics from "./Physics";
+import CarPhysics from "./CarPhysics";
+import ThreeMaterialsBody from "./ThreeMaterialsBody";
+import ThreeMaterialsWheels from "./ThreeMaterialsWheels";
+import ThreeTextures from "./ThreeTextures";
+import Settings from "./Settings";
 import {positionInRange} from "./Utils";
 
 
-export class ControlsKeyboard {
+export default class ControlsKeyboard {
 
 
 	private static enabled: boolean = false;
@@ -49,53 +49,6 @@ export class ControlsKeyboard {
 			window.addEventListener("keyup", e => this.keyUp(e), false);
 		}
 	}
-
-
-	private static keyUp(e: KeyboardEvent): void {
-		if (this.keysActions[e.code]) {
-			this.actions[this.keysActions[e.code]] = false;
-		}
-
-		if (e.code == "KeyT") {
-			this.maxEngineForce = 8000;
-			this.maxBreakingForce = 150;
-			this.maxSpeed = 240;
-			CarPhysics.fourWheelDrive = true;
-			this.toGold(ThreeMaterialsBody.chrome);
-			this.toGold(ThreeMaterialsBody.body);
-			this.toGold(ThreeMaterialsBody.roofMirrors);
-			this.toGold(ThreeMaterialsWheels.wheel);
-		}
-
-		if (e.code == "KeyP") {
-			Physics.togglePause();
-		}
-	}
-
-
-	private static keyDown(e: KeyboardEvent): void {
-		if (this.keysActions[e.code]) {
-			this.actions[this.keysActions[e.code]] = true;
-		}
-
-		if (e.code == "KeyN") {
-			Physics.step();
-		}
-	}
-
-
-	private static toGold(material: THREE.MeshPhysicalMaterial): void {
-		material.color.r = 1;
-		material.color.g = 0.8;
-		material.color.b = 0;
-		material.metalness = 0.8;
-		material.roughness = 0.1;
-		material.clearCoat = 1;
-		material.clearCoatRoughness = 0.1;
-		material.reflectivity = 0.8;
-		material.envMap = ThreeTextures.enviromentMap;
-	}
-
 
 	public static update(): void {
 		if (this.enabled && !Settings.mobile) {
@@ -147,5 +100,48 @@ export class ControlsKeyboard {
 				}
 			}
 		}
+	}
+
+	private static keyUp(e: KeyboardEvent): void {
+		if (this.keysActions[e.code]) {
+			this.actions[this.keysActions[e.code]] = false;
+		}
+
+		if (e.code === "KeyT") {
+			this.maxEngineForce = 8000;
+			this.maxBreakingForce = 150;
+			this.maxSpeed = 240;
+			CarPhysics.fourWheelDrive = true;
+			this.toGold(ThreeMaterialsBody.chrome);
+			this.toGold(ThreeMaterialsBody.body);
+			this.toGold(ThreeMaterialsBody.roofMirrors);
+			this.toGold(ThreeMaterialsWheels.wheel);
+		}
+
+		if (e.code === "KeyP") {
+			Physics.togglePause();
+		}
+	}
+
+	private static keyDown(e: KeyboardEvent): void {
+		if (this.keysActions[e.code]) {
+			this.actions[this.keysActions[e.code]] = true;
+		}
+
+		if (e.code === "KeyN") {
+			Physics.step();
+		}
+	}
+
+	private static toGold(material: THREE.MeshPhysicalMaterial): void {
+		material.color.r = 1;
+		material.color.g = 0.8;
+		material.color.b = 0;
+		material.metalness = 0.8;
+		material.roughness = 0.1;
+		material.clearCoat = 1;
+		material.clearCoatRoughness = 0.1;
+		material.reflectivity = 0.8;
+		material.envMap = ThreeTextures.enviromentMap;
 	}
 }

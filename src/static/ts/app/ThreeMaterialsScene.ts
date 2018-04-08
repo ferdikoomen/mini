@@ -1,11 +1,11 @@
 import * as THREE from "three";
 
 
-import {ThreeTextures} from "./ThreeTextures";
-import {Settings} from "./Settings";
+import ThreeTextures from "./ThreeTextures";
+import Settings from "./Settings";
 
 
-export class ThreeMaterialsScene {
+export default class ThreeMaterialsScene {
 
 
 	public static backside: THREE.MeshBasicMaterial;

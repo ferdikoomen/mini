@@ -1,7 +1,7 @@
-import {Settings} from "./Settings";
+import Settings from "./Settings";
 
 
-export class ControlsSelectQuality {
+export default class ControlsSelectQuality {
 
 
 	private static selected: boolean = false;
@@ -11,17 +11,16 @@ export class ControlsSelectQuality {
 
 
 	public static wait(): Promise<void> {
-		return new Promise<void>(
-			(resolve: () => void): void => {
-				this.elementLow = document.getElementById("controls-quality-low");
-				this.elementHigh = document.getElementById("controls-quality-high");
-				this.elementGo = document.getElementById("controls-quality-go");
+		return new Promise<void>((resolve: () => void): void => {
+			this.elementLow = document.getElementById("controls-quality-low");
+			this.elementHigh = document.getElementById("controls-quality-high");
+			this.elementGo = document.getElementById("controls-quality-go");
 
-				this.elementLow.className = "show";
-				this.elementHigh.className = "show";
-				this.elementLow.addEventListener("click", () => this.select(false, resolve), false);
-				this.elementHigh.addEventListener("click", () => this.select(true, resolve), false);
-			});
+			this.elementLow.className = "show";
+			this.elementHigh.className = "show";
+			this.elementLow.addEventListener("click", () => this.select(false, resolve), false);
+			this.elementHigh.addEventListener("click", () => this.select(true, resolve), false);
+		});
 	}
 
 

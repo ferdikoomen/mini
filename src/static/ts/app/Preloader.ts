@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 
-export class Preloader {
+export default class Preloader {
 
 
 	public static manager: THREE.LoadingManager = new THREE.LoadingManager();

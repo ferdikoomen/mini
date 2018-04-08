@@ -1,10 +1,10 @@
 import * as THREE from "three";
 
 
-import {ThreeTextures} from "./ThreeTextures";
+import ThreeTextures from "./ThreeTextures";
 
 
-export class ThreeMaterialsWheels {
+export default class ThreeMaterialsWheels {
 
 
 	public static brakeDisc: THREE.MeshPhongMaterial;

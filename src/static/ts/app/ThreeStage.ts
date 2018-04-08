@@ -1,14 +1,10 @@
 import * as THREE from "three";
 
 
-import {Settings} from "./Settings";
+import Settings from "./Settings";
 
 
-export class ThreeStage {
-
-
-	private static width: number;
-	private static height: number;
+export default class ThreeStage {
 
 
 	public static fog: THREE.Fog;
@@ -17,7 +13,8 @@ export class ThreeStage {
 	public static directionalLight: THREE.DirectionalLight;
 	public static spotLight: THREE.SpotLight;
 	public static renderer: THREE.WebGLRenderer;
-
+	private static width: number;
+	private static height: number;
 
 	public static init(): void {
 		this.width = window.innerWidth;

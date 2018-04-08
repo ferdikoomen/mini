@@ -2,13 +2,13 @@ import * as THREE from "three";
 import * as TWEEN from "@tweenjs/tween.js";
 
 
-import {ThreeMaterialsBody} from "./ThreeMaterialsBody";
-import {ThreeMaterialsScene} from "./ThreeMaterialsScene";
-import {SceneColors} from "./SceneColors";
-import {Settings} from "./Settings";
+import ThreeMaterialsBody from "./ThreeMaterialsBody";
+import ThreeMaterialsScene from "./ThreeMaterialsScene";
+import SceneColors from "./SceneColors";
+import Settings from "./Settings";
 
 
-export class ControlsSelectColor {
+export default class ControlsSelectColor {
 
 
 	private static enabled: boolean = false;
@@ -20,44 +20,43 @@ export class ControlsSelectColor {
 	private static tweenPosition: TWEEN.Tween;
 
 
-	public static wait(): Promise<void> {
-		return new Promise<void>(
-			(resolve: () => void): void => {
-				this.enabled = true;
+	public static async wait(): Promise<void> {
+		return new Promise<void>((resolve: () => void): void => {
+			this.enabled = true;
 
-				this.elementNext = document.getElementById("controls-color-next");
-				this.elementPrev = document.getElementById("controls-color-prev");
-				this.elementSelect = document.getElementById("controls-color-select");
+			this.elementNext = document.getElementById("controls-color-next");
+			this.elementPrev = document.getElementById("controls-color-prev");
+			this.elementSelect = document.getElementById("controls-color-select");
 
-				this.elementNext.className = "show";
-				this.elementPrev.className = "show";
-				this.elementSelect.className = "show";
+			this.elementNext.className = "show";
+			this.elementPrev.className = "show";
+			this.elementSelect.className = "show";
 
-				this.elementNext.addEventListener("click", () => this.animate(-1), false);
-				this.elementPrev.addEventListener("click", () => this.animate(1), false);
-				this.elementSelect.addEventListener("click", () => this.select(resolve), false);
+			this.elementNext.addEventListener("click", () => this.animate(-1), false);
+			this.elementPrev.addEventListener("click", () => this.animate(1), false);
+			this.elementSelect.addEventListener("click", () => this.select(resolve), false);
 
-				this.tweenColor = new TWEEN.Tween({
-					r: ThreeMaterialsBody.body.color.r,
-					g: ThreeMaterialsBody.body.color.g,
-					b: ThreeMaterialsBody.body.color.b
-				})
-					.easing(TWEEN.Easing.Cubic.Out)
-					.onUpdate((object: any): void => {
-						ThreeMaterialsBody.body.color.r = object.r;
-						ThreeMaterialsBody.body.color.g = object.g;
-						ThreeMaterialsBody.body.color.b = object.b;
-					});
+			this.tweenColor = new TWEEN.Tween({
+				r: ThreeMaterialsBody.body.color.r,
+				g: ThreeMaterialsBody.body.color.g,
+				b: ThreeMaterialsBody.body.color.b
+			})
+				.easing(TWEEN.Easing.Cubic.Out)
+				.onUpdate((object: any): void => {
+					ThreeMaterialsBody.body.color.r = object.r;
+					ThreeMaterialsBody.body.color.g = object.g;
+					ThreeMaterialsBody.body.color.b = object.b;
+				});
 
-				this.tweenPosition = new TWEEN.Tween({
-					position: 0
-				})
-					.easing(TWEEN.Easing.Elastic.Out)
-					.onUpdate((object: any): void => {
-						SceneColors.group.position.x = object.position;
-						SceneColors.group.updateMatrix();
-					});
-			});
+			this.tweenPosition = new TWEEN.Tween({
+				position: 0
+			})
+				.easing(TWEEN.Easing.Elastic.Out)
+				.onUpdate((object: any): void => {
+					SceneColors.group.position.x = object.position;
+					SceneColors.group.updateMatrix();
+				});
+		});
 	}
 
 

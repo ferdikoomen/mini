@@ -1,6 +1,6 @@
-require("../scss/main.scss");
+import "../scss/main.scss";
 
-import {Application} from "./app/Application";
+import Application from "./app/Application";
 
 Application.start();
 

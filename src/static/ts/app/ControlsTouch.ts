@@ -1,9 +1,9 @@
-import {CarPhysics} from "./CarPhysics";
-import {Settings} from "./Settings";
+import CarPhysics from "./CarPhysics";
+import Settings from "./Settings";
 import {positionInRange} from "./Utils";
 
 
-export class ControlsTouch {
+export default class ControlsTouch {
 
 
 	private static enabled: boolean = false;
@@ -47,41 +47,6 @@ export class ControlsTouch {
 		}
 	}
 
-
-	private static onTouchMove(e: TouchEvent): void {
-		e.preventDefault();
-		e.stopImmediatePropagation();
-
-		for (let i: number = 0; i < e.touches.length; i++) {
-			const touch: Touch = e.touches[i];
-			if (touch.target == this.elementSteer) {
-				const left: number = this.elementSteer.getBoundingClientRect().left;
-				this.steer = positionInRange(touch.clientX, left, left + 180, 1, -1, true);
-			}
-			if (touch.target == this.elementAccelerate) {
-				const top: number = this.elementAccelerate.getBoundingClientRect().top;
-				this.acceleration = positionInRange(touch.clientY, top, top + 180, 1, -1, true);
-			}
-		}
-	}
-
-
-	private static onTouchEnd(e: TouchEvent): void {
-		e.preventDefault();
-		e.stopImmediatePropagation();
-
-		for (let i: number = 0; i < e.changedTouches.length; i++) {
-			const touch: Touch = e.changedTouches[i];
-			if (touch.target == this.elementSteer) {
-				this.steer = 0;
-			}
-			if (touch.target == this.elementAccelerate) {
-				this.acceleration = 0;
-			}
-		}
-	}
-
-
 	public static update(): void {
 		if (this.enabled && Settings.mobile) {
 			const speed: number = CarPhysics.getSpeed();
@@ -107,8 +72,40 @@ export class ControlsTouch {
 				}
 			}
 
-			if (this.acceleration == 0) {
+			if (this.acceleration === 0) {
 				CarPhysics.breakingForce = 10;
+			}
+		}
+	}
+
+	private static onTouchMove(e: TouchEvent): void {
+		e.preventDefault();
+		e.stopImmediatePropagation();
+
+		for (let i: number = 0; i < e.touches.length; i++) {
+			const touch: Touch = e.touches[i];
+			if (touch.target === this.elementSteer) {
+				const left: number = this.elementSteer.getBoundingClientRect().left;
+				this.steer = positionInRange(touch.clientX, left, left + 180, 1, -1, true);
+			}
+			if (touch.target === this.elementAccelerate) {
+				const top: number = this.elementAccelerate.getBoundingClientRect().top;
+				this.acceleration = positionInRange(touch.clientY, top, top + 180, 1, -1, true);
+			}
+		}
+	}
+
+	private static onTouchEnd(e: TouchEvent): void {
+		e.preventDefault();
+		e.stopImmediatePropagation();
+
+		for (let i: number = 0; i < e.changedTouches.length; i++) {
+			const touch: Touch = e.changedTouches[i];
+			if (touch.target === this.elementSteer) {
+				this.steer = 0;
+			}
+			if (touch.target === this.elementAccelerate) {
+				this.acceleration = 0;
 			}
 		}
 	}

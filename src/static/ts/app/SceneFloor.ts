@@ -2,11 +2,11 @@ import * as THREE from "three";
 import * as TWEEN from "@tweenjs/tween.js";
 
 
-import {ThreeMaterialsScene} from "./ThreeMaterialsScene";
-import {Settings} from "./Settings";
+import ThreeMaterialsScene from "./ThreeMaterialsScene";
+import Settings from "./Settings";
 
 
-export class SceneFloor {
+export default class SceneFloor {
 
 
 	public static floorLeft: THREE.Mesh;
@@ -39,22 +39,21 @@ export class SceneFloor {
 	}
 
 
-	public static show(): Promise<void> {
-		return new Promise<void>(
-			(resolve: () => void): void => {
-				new TWEEN.Tween({scale: 0.0001})
-					.to({scale: 1}, 1500 / Settings.speed)
-					.easing(TWEEN.Easing.Cubic.InOut)
-					.onUpdate((object: any): void => {
-						this.floorLeft.scale.set(object.scale, object.scale, object.scale);
-						this.floorRight.scale.set(object.scale, object.scale, object.scale);
-						this.floorLeft.updateMatrix();
-						this.floorRight.updateMatrix();
-					})
-					.onComplete((): void => {
-						resolve();
-					})
-					.start();
-			});
+	public static async show(): Promise<void> {
+		return new Promise<void>((resolve: () => void): void => {
+			new TWEEN.Tween({scale: 0.0001})
+				.to({scale: 1}, 1500 / Settings.speed)
+				.easing(TWEEN.Easing.Cubic.InOut)
+				.onUpdate((object: any): void => {
+					this.floorLeft.scale.set(object.scale, object.scale, object.scale);
+					this.floorRight.scale.set(object.scale, object.scale, object.scale);
+					this.floorLeft.updateMatrix();
+					this.floorRight.updateMatrix();
+				})
+				.onComplete((): void => {
+					resolve();
+				})
+				.start();
+		});
 	}
 }

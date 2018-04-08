@@ -1,12 +1,12 @@
 import * as THREE from "three";
 
 
-import {CarPhysics} from "./CarPhysics";
-import {Settings} from "./Settings";
+import CarPhysics from "./CarPhysics";
+import Settings from "./Settings";
 import {positionInRange} from "./Utils";
 
 
-export class ControlsOrientation {
+export default class ControlsOrientation {
 
 
 	private static enabled: boolean = false;
@@ -36,17 +36,6 @@ export class ControlsOrientation {
 		}
 	}
 
-
-	private static onDeviceOrientationChange(e: DeviceOrientationEvent): void {
-		this.deviceOrientation = e;
-	}
-
-
-	private static onScreenOrientationChange(): void {
-		this.screenOrientation = <number> window.orientation || 0;
-	}
-
-
 	public static update(): void {
 		if (this.enabled && this.deviceOrientation && Settings.mobile) {
 
@@ -72,5 +61,13 @@ export class ControlsOrientation {
 			CarPhysics.engineForce = engineForce;
 			CarPhysics.breakingForce = breakingForce;
 		}
+	}
+
+	private static onDeviceOrientationChange(e: DeviceOrientationEvent): void {
+		this.deviceOrientation = e;
+	}
+
+	private static onScreenOrientationChange(): void {
+		this.screenOrientation = <number> window.orientation || 0;
 	}
 }

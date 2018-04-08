@@ -1,12 +1,12 @@
 import * as THREE from "three";
 
 
-import {ThreeMaterialsScene} from "./ThreeMaterialsScene";
-import {ThreeStage} from "./ThreeStage";
-import {Physics} from "./Physics";
+import ThreeMaterialsScene from "./ThreeMaterialsScene";
+import ThreeStage from "./ThreeStage";
+import Physics from "./Physics";
 
 
-export class SceneObjects {
+export default class SceneObjects {
 
 
 	private static enabled: boolean = false;
@@ -41,6 +41,28 @@ export class SceneObjects {
 		}
 	}
 
+	public static update(): void {
+		if (this.enabled) {
+
+			const transform: Ammo.btTransform = new Ammo.btTransform();
+
+			for (let i: number = 0; i < this.count; i++) {
+
+				const mesh: THREE.Mesh = this.meshes[i];
+				const body: Ammo.btRigidBody = this.bodies[i];
+				const ms: Ammo.btMotionState = body.getMotionState();
+
+				if (ms) {
+					ms.getWorldTransform(transform);
+					const position: Ammo.btVector3 = transform.getOrigin();
+					const quaternion: Ammo.btQuaternion = transform.getRotation();
+					mesh.position.set(position.x(), position.y(), position.z());
+					mesh.quaternion.set(quaternion.x(), quaternion.y(), quaternion.z(), quaternion.w());
+					mesh.updateMatrix();
+				}
+			}
+		}
+	}
 
 	private static createBox(position: THREE.Vector3, quaternion: THREE.Quaternion, w: number, l: number, h: number, mass: number, friction: number, material: THREE.Material): void {
 		const mesh: THREE.Mesh = new THREE.Mesh(new THREE.BoxBufferGeometry(w, l, h, 1, 1, 1), material);
@@ -72,30 +94,6 @@ export class SceneObjects {
 			this.bodies.push(body);
 			this.meshes.push(mesh);
 			this.count++;
-		}
-	}
-
-
-	public static update(): void {
-		if (this.enabled) {
-
-			const transform: Ammo.btTransform = new Ammo.btTransform();
-
-			for (let i: number = 0; i < this.count; i++) {
-
-				const mesh: THREE.Mesh = this.meshes[i];
-				const body: Ammo.btRigidBody = this.bodies[i];
-				const ms: Ammo.btMotionState = body.getMotionState();
-
-				if (ms) {
-					ms.getWorldTransform(transform);
-					const position: Ammo.btVector3 = transform.getOrigin();
-					const quaternion: Ammo.btQuaternion = transform.getRotation();
-					mesh.position.set(position.x(), position.y(), position.z());
-					mesh.quaternion.set(quaternion.x(), quaternion.y(), quaternion.z(), quaternion.w());
-					mesh.updateMatrix();
-				}
-			}
 		}
 	}
 }

@@ -2,11 +2,11 @@ import * as THREE from "three";
 import * as TWEEN from "@tweenjs/tween.js";
 
 
-import {Settings} from "./Settings";
+import Settings from "./Settings";
 import {getTheta} from "./Utils";
 
 
-export class ThreeCamera {
+export default class ThreeCamera {
 
 	public static camera: THREE.PerspectiveCamera;
 	public static enabled: boolean = true;
@@ -74,11 +74,141 @@ export class ThreeCamera {
 		document.addEventListener("touchend", (e) => this.onTouchEnd(e), false);
 	}
 
+	public static resize(): void {
+		this.width = window.innerWidth;
+		this.height = window.innerHeight;
+		this.camera.aspect = this.width / this.height;
+		this.camera.updateProjectionMatrix();
+	}
+
+	public static update(): void {
+		if (this.enabled) {
+
+			if (this.followTarget) {
+				this.target.position.lerp(this.followTarget.position, 0.1);
+				this.target.quaternion.slerp(this.followTarget.quaternion, 0.1);
+				this.target.updateMatrix();
+
+				const theta: number = getTheta(this.target);
+				this.followThetaDelta = theta - this.followTheta;
+				this.followTheta += this.followThetaDelta;
+
+			} else {
+				this.offset.copy(this.camera.position).sub(this.target.position);
+				this.spherical.setFromVector3(this.offset);
+			}
+
+			this.spherical.theta += this.followThetaDelta;
+			this.spherical.theta += this.sphericalDelta.theta;
+			this.spherical.phi += this.sphericalDelta.phi;
+			this.spherical.theta = Math.max(this.minAzimuthAngle, Math.min(this.maxAzimuthAngle, this.spherical.theta));
+			this.spherical.phi = Math.max(this.minPolarAngle, Math.min(this.maxPolarAngle, this.spherical.phi));
+			this.spherical.makeSafe();
+			this.spherical.radius *= this.scale;
+			this.spherical.radius = Math.max(this.minDistance, Math.min(this.maxDistance, this.spherical.radius));
+
+			this.offset.setFromSpherical(this.spherical);
+
+			this.target.position.add(this.panOffset);
+			this.target.updateMatrix();
+
+			this.camera.position.copy(this.target.position).add(this.offset);
+			this.camera.lookAt(this.target.position);
+			this.camera.updateMatrix();
+
+			this.sphericalDelta.theta *= (1 - this.dampingFactor);
+			this.sphericalDelta.phi *= (1 - this.dampingFactor);
+			this.panOffset.set(0, 0, 0);
+			this.scale = 1;
+		}
+	}
+
+	public static setFollowTarget(target: THREE.Object3D): void {
+		this.followTarget = target;
+		this.followTheta = getTheta(target);
+		this.followThetaDelta = 0;
+	}
+
+	public static async animatePosition(cameraTo: number[], targetTo: number[], duration: number): Promise<void> {
+		return new Promise<void>((resolve: () => void): void => {
+			new TWEEN.Tween({
+				cameraX: this.camera.position.x,
+				cameraY: this.camera.position.y,
+				cameraZ: this.camera.position.z,
+				targetX: this.target.position.x,
+				targetY: this.target.position.y,
+				targetZ: this.target.position.z,
+			})
+				.to({
+					cameraX: cameraTo[0],
+					cameraY: cameraTo[1],
+					cameraZ: cameraTo[2],
+					targetX: targetTo[0],
+					targetY: targetTo[1],
+					targetZ: targetTo[2],
+				}, duration / Settings.speed)
+				.easing(TWEEN.Easing.Quintic.Out)
+				.onUpdate((object: any): void => {
+					this.camera.position.set(object.cameraX, object.cameraY, object.cameraZ);
+					this.target.position.set(object.targetX, object.targetY, object.targetZ);
+					this.camera.updateMatrix();
+					this.target.updateMatrix();
+				})
+				.onComplete((): void => {
+					resolve();
+				})
+				.start();
+		});
+	}
+
+	public static async animateSpherical(theta: number, phi: number, radius: number, targetTo: number[], duration: number): Promise<void> {
+		return new Promise<void>((resolve: () => void): void => {
+			const enabled: boolean = this.enabled;
+			new TWEEN.Tween({
+				theta: this.spherical.theta,
+				phi: this.spherical.phi,
+				radius: this.spherical.radius,
+				targetX: this.target.position.x,
+				targetY: this.target.position.y,
+				targetZ: this.target.position.z,
+			})
+				.to({
+					theta: THREE.Math.degToRad(theta),
+					phi: THREE.Math.degToRad(phi),
+					radius: radius,
+					targetX: targetTo[0],
+					targetY: targetTo[1],
+					targetZ: targetTo[2],
+				}, duration / Settings.speed)
+				.easing(TWEEN.Easing.Cubic.InOut)
+				.onStart((): void => {
+					this.enabled = false;
+				})
+				.onUpdate((object: any): void => {
+					this.sphericalDelta.theta = 0;
+					this.sphericalDelta.phi = 0;
+					this.spherical.theta = object.theta;
+					this.spherical.phi = object.phi;
+					this.spherical.radius = object.radius;
+					this.target.position.set(object.targetX, object.targetY, object.targetZ);
+					this.target.updateMatrix();
+					this.offset.setFromSpherical(this.spherical);
+					this.offset.applyQuaternion(this.quatInverse);
+					this.camera.position.copy(this.target.position).add(this.offset);
+					this.camera.lookAt(this.target.position);
+					this.camera.updateMatrix();
+				})
+				.onComplete((): void => {
+					this.enabled = enabled;
+					resolve();
+				})
+				.start();
+		});
+	}
 
 	private static onContextMenu(e: Event): void {
 		e.preventDefault();
 	}
-
 
 	private static onMouseDown(e: MouseEvent): void {
 		if (this.enabled) {
@@ -106,12 +236,11 @@ export class ThreeCamera {
 					break;
 			}
 
-			if (this.state != this.states.NONE) {
+			if (this.state !== this.states.NONE) {
 				this.mouseDown = true;
 			}
 		}
 	}
-
 
 	private static onMouseMove(e: MouseEvent): void {
 		if (this.enabled && this.mouseDown) {
@@ -153,15 +282,13 @@ export class ThreeCamera {
 		}
 	}
 
-
 	private static onMouseUp(e: MouseEvent): void {
 		this.mouseDown = false;
 		this.state = this.states.NONE;
 	}
 
-
 	private static onMouseWheel(e: MouseWheelEvent): void {
-		if (this.enabled && this.enableZoom && (this.state == this.states.NONE || this.state == this.states.ROTATE)) {
+		if (this.enabled && this.enableZoom && (this.state === this.states.NONE || this.state === this.states.ROTATE)) {
 			e.preventDefault();
 			e.stopPropagation();
 
@@ -172,7 +299,6 @@ export class ThreeCamera {
 			}
 		}
 	}
-
 
 	private static onTouchStart(e: TouchEvent): void {
 		if (this.enabled) {
@@ -204,7 +330,6 @@ export class ThreeCamera {
 			}
 		}
 	}
-
 
 	private static onTouchMove(e: TouchEvent): void {
 		if (this.enabled) {
@@ -250,37 +375,31 @@ export class ThreeCamera {
 		}
 	}
 
-
 	private static onTouchEnd(e: TouchEvent): void {
 		this.state = this.states.NONE;
 	}
-
 
 	private static getZoomScale(): number {
 		return Math.pow(0.95, this.zoomSpeed);
 	}
 
-
 	private static rotateLeft(angle: number): void {
 		this.sphericalDelta.theta -= angle;
 	}
 
-
 	private static rotateUp(angle: number): void {
 		this.sphericalDelta.phi -= angle;
 	}
-
 
 	private static pan(deltaX: number, deltaY: number): void {
 		const offset: THREE.Vector3 = new THREE.Vector3();
 		const position: THREE.Vector3 = this.camera.position;
 		offset.copy(position).sub(this.target.position);
 		let targetDistance: number = offset.length();
-		targetDistance *= Math.tan((this.camera.fov / 2 ) * Math.PI / 180.0);
+		targetDistance *= Math.tan((this.camera.fov / 2) * Math.PI / 180.0);
 		this.panLeft(2 * deltaX * targetDistance / this.height, this.camera.matrix);
 		this.panUp(2 * deltaY * targetDistance / this.height, this.camera.matrix);
 	}
-
 
 	private static panLeft(distance: number, objectMatrix: THREE.Matrix4): void {
 		const v: THREE.Vector3 = new THREE.Vector3();
@@ -289,7 +408,6 @@ export class ThreeCamera {
 		this.panOffset.add(v);
 	}
 
-
 	private static panUp(distance: number, objectMatrix: THREE.Matrix4): void {
 		const v: THREE.Vector3 = new THREE.Vector3();
 		v.setFromMatrixColumn(objectMatrix, 1);
@@ -297,152 +415,11 @@ export class ThreeCamera {
 		this.panOffset.add(v);
 	}
 
-
 	private static dollyIn(dollyScale: number): void {
 		this.scale /= dollyScale;
 	}
 
-
 	private static dollyOut(dollyScale: number): void {
 		this.scale *= dollyScale;
-	}
-
-
-	public static resize(): void {
-		this.width = window.innerWidth;
-		this.height = window.innerHeight;
-		this.camera.aspect = this.width / this.height;
-		this.camera.updateProjectionMatrix();
-	}
-
-
-	public static update(): void {
-		if (this.enabled) {
-
-			if (this.followTarget) {
-				this.target.position.lerp(this.followTarget.position, 0.1);
-				this.target.quaternion.slerp(this.followTarget.quaternion, 0.1);
-				this.target.updateMatrix();
-
-				const theta: number = getTheta(this.target);
-				this.followThetaDelta = theta - this.followTheta;
-				this.followTheta += this.followThetaDelta;
-
-			} else {
-				this.offset.copy(this.camera.position).sub(this.target.position);
-				this.spherical.setFromVector3(this.offset);
-			}
-
-			this.spherical.theta += this.followThetaDelta;
-			this.spherical.theta += this.sphericalDelta.theta;
-			this.spherical.phi += this.sphericalDelta.phi;
-			this.spherical.theta = Math.max(this.minAzimuthAngle, Math.min(this.maxAzimuthAngle, this.spherical.theta));
-			this.spherical.phi = Math.max(this.minPolarAngle, Math.min(this.maxPolarAngle, this.spherical.phi));
-			this.spherical.makeSafe();
-			this.spherical.radius *= this.scale;
-			this.spherical.radius = Math.max(this.minDistance, Math.min(this.maxDistance, this.spherical.radius));
-
-			this.offset.setFromSpherical(this.spherical);
-
-			this.target.position.add(this.panOffset);
-			this.target.updateMatrix();
-
-			this.camera.position.copy(this.target.position).add(this.offset);
-			this.camera.lookAt(this.target.position);
-			this.camera.updateMatrix();
-
-			this.sphericalDelta.theta *= (1 - this.dampingFactor);
-			this.sphericalDelta.phi *= (1 - this.dampingFactor);
-			this.panOffset.set(0, 0, 0);
-			this.scale = 1;
-		}
-	}
-
-
-	public static setFollowTarget(target: THREE.Object3D): void {
-		this.followTarget = target;
-		this.followTheta = getTheta(target);
-		this.followThetaDelta = 0;
-	}
-
-
-	public static animatePosition(cameraTo: number[], targetTo: number[], duration: number): Promise<void> {
-		return new Promise<void>(
-			(resolve: () => void): void => {
-				new TWEEN.Tween({
-					cameraX: this.camera.position.x,
-					cameraY: this.camera.position.y,
-					cameraZ: this.camera.position.z,
-					targetX: this.target.position.x,
-					targetY: this.target.position.y,
-					targetZ: this.target.position.z,
-				})
-					.to({
-						cameraX: cameraTo[0],
-						cameraY: cameraTo[1],
-						cameraZ: cameraTo[2],
-						targetX: targetTo[0],
-						targetY: targetTo[1],
-						targetZ: targetTo[2],
-					}, duration / Settings.speed)
-					.easing(TWEEN.Easing.Quintic.Out)
-					.onUpdate((object: any): void => {
-						this.camera.position.set(object.cameraX, object.cameraY, object.cameraZ);
-						this.target.position.set(object.targetX, object.targetY, object.targetZ);
-						this.camera.updateMatrix();
-						this.target.updateMatrix();
-					})
-					.onComplete((): void => {
-						resolve();
-					})
-					.start();
-			});
-	}
-
-
-	public static animateSpherical(theta: number, phi: number, radius: number, targetTo: number[], duration: number): Promise<void> {
-		return new Promise<void>(
-			(resolve: () => void): void => {
-				const enabled: boolean = this.enabled;
-				new TWEEN.Tween({
-					theta: this.spherical.theta,
-					phi: this.spherical.phi,
-					radius: this.spherical.radius,
-					targetX: this.target.position.x,
-					targetY: this.target.position.y,
-					targetZ: this.target.position.z,
-				})
-					.to({
-						theta: THREE.Math.degToRad(theta),
-						phi: THREE.Math.degToRad(phi),
-						radius: radius,
-						targetX: targetTo[0],
-						targetY: targetTo[1],
-						targetZ: targetTo[2],
-					}, duration / Settings.speed)
-					.easing(TWEEN.Easing.Cubic.InOut)
-					.onStart((): void => {
-						this.enabled = false;
-					})
-					.onUpdate((object: any): void => {
-						this.sphericalDelta.theta = 0;
-						this.sphericalDelta.phi = 0;
-						this.spherical.theta = object.theta;
-						this.spherical.phi = object.phi;
-						this.spherical.radius = object.radius;
-						this.target.position.set(object.targetX, object.targetY, object.targetZ);
-						this.target.updateMatrix();
-						this.offset.setFromSpherical(this.spherical);
-						this.offset.applyQuaternion(this.quatInverse);
-						this.camera.position.copy(this.target.position).add(this.offset);
-						this.camera.lookAt(this.target.position);
-						this.camera.updateMatrix();
-					})
-					.onComplete((): void => {
-						this.enabled = enabled;
-						resolve();
-					})
-					.start();
-			});
 	}
 }

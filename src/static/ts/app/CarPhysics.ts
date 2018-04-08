@@ -1,12 +1,12 @@
 import * as THREE from "three";
 
 
-import {CarBody} from "./CarBody";
-import {CarWheels} from "./CarWheels";
-import {Physics} from "./Physics";
+import CarBody from "./CarBody";
+import CarWheels from "./CarWheels";
+import Physics from "./Physics";
 
 
-export class CarPhysics {
+export default class CarPhysics {
 
 	public static enabled: boolean = false;
 	public static body: THREE.Object3D;
@@ -122,7 +122,7 @@ export class CarPhysics {
 				const wheel: THREE.Object3D = this.wheels[i];
 				wheel.position.set(position.x(), position.y(), position.z());
 				wheel.quaternion.set(quaternion.x(), quaternion.y(), quaternion.z(), quaternion.w());
-				wheel.rotateY(i == 0 || i == 2 ? Math.PI : 0);
+				wheel.rotateY(i === 0 || i === 2 ? Math.PI : 0);
 				wheel.updateMatrix();
 			}
 		}

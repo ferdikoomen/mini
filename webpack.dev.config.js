@@ -16,7 +16,7 @@ const StyleLintPlugin = require("stylelint-webpack-plugin");
 
 module.exports = {
 
-	devtool: "source-map",
+	devtool: "cheap-module-source-map",
 
 	resolve: {
 		extensions: [".ts", ".js", ".scss"]
@@ -32,7 +32,8 @@ module.exports = {
 	},
 
 	output: {
-		path: path.join(process.cwd(), "deploy"),
+		pathinfo: true,
+		path: path.resolve(process.cwd(), "deploy"),
 		filename: "static/js/[name].bundle.js",
 		chunkFilename: "static/js/[id].chunk.js"
 	},
@@ -50,7 +51,7 @@ module.exports = {
 			loader: "tslint-loader"
 		}, {
 			enforce: "pre",
-			test: /\.html/,
+			test: /\.html$/,
 			exclude: /node_modules/,
 			loader: "htmlhint-loader"
 		}, {
@@ -93,11 +94,11 @@ module.exports = {
 			loader: "file-loader?publicPath=/&outputPath=static/gfx/&name=[name].[ext]"
 		}, {
 			test: /\.js$/,
-			include: path.join(process.cwd(), "src/static/js"),
+			include: path.resolve(process.cwd(), "src/static/js"),
 			loader: "file-loader?publicPath=/&outputPath=static/js/&name=[name].[ext]"
 		}, {
-			test: /\.json/,
-			include: path.join(process.cwd(), "src/static/models"),
+			test: /\.json$/,
+			include: path.resolve(process.cwd(), "src/static/models"),
 			loader: "file-loader?publicPath=/&outputPath=static/models/&name=[name].[ext]"
 		}, {
 			test: /\.html$/,
@@ -108,11 +109,10 @@ module.exports = {
 	plugins: [
 		new HardSourceWebpackPlugin({
 			cacheDirectory: "../node_modules/.cache/hard-source/[confighash]",
-			recordsPath: "../node_modules/.cache/hard-source/[confighash]/records.json",
 			environmentHash: {
 				root: process.cwd(),
 				directories: [],
-				files: ["package-lock.json", "yarn.lock"],
+				files: ["package-lock.json", "yarn.lock", "webpack.dev.config.js"],
 			},
 		}),
 		new webpack.NoEmitOnErrorsPlugin(),
@@ -128,13 +128,12 @@ module.exports = {
 		new CleanWebpackPlugin(["deploy"], {
 			verbose: true
 		}),
-		new CopyWebpackPlugin([{
-			from: "src/robots.txt",
-			to: "."
-		}, {
-			from: "src/sitemap.xml",
-			to: "."
-		}]),
+		new CopyWebpackPlugin([
+			{from: "src/robots.txt", to: "."},
+			{from: "src/sitemap.xml", to: "."},
+			{from: "src/static/js/*.*", to: "./static/js/", flatten: true},
+			{from: "node_modules/three/build/three.min.js", to: "./static/js/", flatten: true}
+		]),
 		new StyleLintPlugin({
 			syntax: "scss"
 		}),
@@ -150,12 +149,11 @@ module.exports = {
 			compile: true,
 			cache: true,
 			showErrors: true,
+			minify: false,
+			chunksSortMode: "manual",
 			chunks: [
 				"main"
-			],
-			chunksSortMode: "manual",
-			xhtml: true,
-			minify: false
+			]
 		}),
 		new ExtractTextPlugin({
 			filename: "static/css/[name].css"
@@ -176,6 +174,10 @@ module.exports = {
 		module: false,
 		clearImmediate: false,
 		setImmediate: false
+	},
+
+	performance: {
+		hints: false,
 	},
 
 	watchOptions: {

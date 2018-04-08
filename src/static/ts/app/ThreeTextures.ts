@@ -1,21 +1,18 @@
 import * as THREE from "three";
 
 
-import {Settings} from "./Settings";
+import Settings from "./Settings";
 
 
-export class ThreeTextures {
-
-
-	private static cubeTextureloader: THREE.CubeTextureLoader;
-	private static textureLoader: THREE.TextureLoader;
+export default class ThreeTextures {
 
 
 	public static enviromentMap: THREE.Texture;
 	public static enviromentMapBlurred: THREE.Texture;
 	public static noiseTexture: THREE.Texture;
 	public static noiseTextureLarge: THREE.Texture;
-
+	private static cubeTextureloader: THREE.CubeTextureLoader;
+	private static textureLoader: THREE.TextureLoader;
 
 	public static load(manager: THREE.LoadingManager): void {
 		this.cubeTextureloader = new THREE.CubeTextureLoader(manager);
