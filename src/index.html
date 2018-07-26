@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+
+		<meta name="locale" content="en"/>
+		<meta name="robots" content="index, follow"/>
+
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+		<meta name="description" content="Jump a Mini Cooper straight through a wall of boxes in this WebGL and Physics demo."/>
+		<meta name="keywords" content="Ferdi Koomen, MINI, WebGL, Physics"/>
+
+		<title>MINI</title>
+
+		<link rel="canonical" href="https://mini.madebyferdi.com"/>
+
+		<link rel="shortcut icon" href="/static/gfx/favicon.ico">
+		<link rel="icon" type="image/png" sizes="16x16" href="/static/gfx/favicon-16x16.png"/>
+		<link rel="icon" type="image/png" sizes="32x32" href="/static/gfx/favicon-32x32.png"/>
+		<link rel="icon" type="image/png" sizes="96x96" href="/static/gfx/favicon-96x96.png"/>
+		<link rel="icon" type="image/png" sizes="194x194" href="/static/gfx/favicon-194x194.png"/>
+		<link rel="apple-touch-icon" sizes="60x60" href="/static/gfx/apple-touch-icon-60x60.png"/>
+		<link rel="apple-touch-icon" sizes="76x76" href="/static/gfx/apple-touch-icon-76x76.png"/>
+		<link rel="apple-touch-icon" sizes="120x120" href="/static/gfx/apple-touch-icon-120x120.png"/>
+		<link rel="apple-touch-icon" sizes="152x152" href="/static/gfx/apple-touch-icon-152x152.png"/>
+		<link rel="apple-touch-icon" sizes="180x180" href="/static/gfx/apple-touch-icon-180x180.png"/>
+
+		<link rel="prefetch" href="/static/gfx/cubemap_back.png"/>
+		<link rel="prefetch" href="/static/gfx/cubemap_back_blur.png"/>
+		<link rel="prefetch" href="/static/gfx/cubemap_bottom.png"/>
+		<link rel="prefetch" href="/static/gfx/cubemap_bottom_blur.png"/>
+		<link rel="prefetch" href="/static/gfx/cubemap_front.png"/>
+		<link rel="prefetch" href="/static/gfx/cubemap_front_blur.png"/>
+		<link rel="prefetch" href="/static/gfx/cubemap_left.png"/>
+		<link rel="prefetch" href="/static/gfx/cubemap_left_blur.png"/>
+		<link rel="prefetch" href="/static/gfx/cubemap_right.png"/>
+		<link rel="prefetch" href="/static/gfx/cubemap_right_blur.png"/>
+		<link rel="prefetch" href="/static/gfx/cubemap_top.png"/>
+		<link rel="prefetch" href="/static/gfx/cubemap_top_blur.png"/>
+		<link rel="prefetch" href="/static/gfx/colors.png"/>
+		<link rel="prefetch" href="/static/gfx/noise.png"/>
+
+		<link rel="prefetch" href="/static/models/colors.json"/>
+		<link rel="prefetch" href="/static/models/back-lights-glass-low.json"/>
+		<link rel="prefetch" href="/static/models/back-lights-low.json"/>
+		<link rel="prefetch" href="/static/models/body-low.json"/>
+		<link rel="prefetch" href="/static/models/bumper-low.json"/>
+		<link rel="prefetch" href="/static/models/brake-disc-low.json"/>
+		<link rel="prefetch" href="/static/models/chrome-low.json"/>
+		<link rel="prefetch" href="/static/models/glass-dark-low.json"/>
+		<link rel="prefetch" href="/static/models/glass-low.json"/>
+		<link rel="prefetch" href="/static/models/head-lights-glass-low.json"/>
+		<link rel="prefetch" href="/static/models/head-lights-low.json"/>
+		<link rel="prefetch" href="/static/models/interior-details-low.json"/>
+		<link rel="prefetch" href="/static/models/interior-low.json"/>
+		<link rel="prefetch" href="/static/models/number-plates-low.json"/>
+		<link rel="prefetch" href="/static/models/plastic-low.json"/>
+		<link rel="prefetch" href="/static/models/roof-mirrors-low.json"/>
+		<link rel="prefetch" href="/static/models/seats-low.json"/>
+		<link rel="prefetch" href="/static/models/tire-low.json"/>
+		<link rel="prefetch" href="/static/models/wheel-cap-low.json"/>
+		<link rel="prefetch" href="/static/models/wheel-low.json"/>
+
+		<link rel="preload" href="/static/fonts/SourceSansPro-Semibold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+		<link rel="preload" href="/static/fonts/SourceSansPro-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+
+		<link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments)}
+			gtag("js", new Date());
+			gtag("config", "UA-91061714-2");
+		</script>
+	</head>
+	<body>
+
+		<div id="header">
+			<h1>MINI Cooper <span>S</span><span>WebGL</span></h1>
+		</div>
+
+		<div id="preloader"></div>
+		<button id="controls-quality-low">LQ</button>
+		<button id="controls-quality-high">HQ</button>
+		<button id="controls-quality-go">GO</button>
+		<button id="controls-drive-steer"></button>
+		<button id="controls-drive-accelerate"></button>
+		<button id="controls-drive-reset"></button>
+		<button id="controls-drive-info">Arrow keys to drive, spacebar to reset</button>
+		<button id="controls-color-next"></button>
+		<button id="controls-color-prev"></button>
+		<button id="controls-color-select">DRIVE</button>
+
+		<script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=UA-91061714-2" async></script>
+
+		<script type="text/javascript" src="/static/js/three.min.js" defer></script>
+		<script type="text/javascript" src="/static/js/ammo.js" defer></script>
+
+	</body>
+</html>

@@ -4,6 +4,7 @@ import * as THREE from "three";
 import ThreeMaterialsScene from "./ThreeMaterialsScene";
 import ThreeStage from "./ThreeStage";
 import Physics from "./Physics";
+import { MeshMaterialType } from "three/three-core";
 
 
 export default class SceneObjects {
@@ -64,7 +65,7 @@ export default class SceneObjects {
 		}
 	}
 
-	private static createBox(position: THREE.Vector3, quaternion: THREE.Quaternion, w: number, l: number, h: number, mass: number, friction: number, material: THREE.Material): void {
+	private static createBox(position: THREE.Vector3, quaternion: THREE.Quaternion, w: number, l: number, h: number, mass: number, friction: number, material: THREE.MeshMaterialType): void {
 		const mesh: THREE.Mesh = new THREE.Mesh(new THREE.BoxBufferGeometry(w, l, h, 1, 1, 1), material);
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;

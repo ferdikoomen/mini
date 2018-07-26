@@ -23,21 +23,21 @@ export default class CarBody {
 		this.group.add(this.body);
 
 		const geometryLQ: THREE.BufferGeometry = await ThreeAssets.load(manager, [
-			require("../../models/back-lights-low.json"),
-			require("../../models/back-lights-glass-low.json"),
-			require("../../models/body-low.json"),
-			require("../../models/bumper-low.json"),
-			require("../../models/chrome-low.json"),
-			require("../../models/glass-dark-low.json"),
-			require("../../models/glass-low.json"),
-			require("../../models/head-lights-low.json"),
-			require("../../models/head-lights-glass-low.json"),
-			require("../../models/interior-details-low.json"),
-			require("../../models/interior-low.json"),
-			require("../../models/number-plates-low.json"),
-			require("../../models/plastic-low.json"),
-			require("../../models/roof-mirrors-low.json"),
-			require("../../models/seats-low.json")
+			"/static/models/back-lights-low.json",
+			"/static/models/back-lights-glass-low.json",
+			"/static/models/body-low.json",
+			"/static/models/bumper-low.json",
+			"/static/models/chrome-low.json",
+			"/static/models/glass-dark-low.json",
+			"/static/models/glass-low.json",
+			"/static/models/head-lights-low.json",
+			"/static/models/head-lights-glass-low.json",
+			"/static/models/interior-details-low.json",
+			"/static/models/interior-low.json",
+			"/static/models/number-plates-low.json",
+			"/static/models/plastic-low.json",
+			"/static/models/roof-mirrors-low.json",
+			"/static/models/seats-low.json"
 		]);
 
 		this.updateLOD(this.body, geometryLQ, ThreeMaterialsBody.materials, 8);
@@ -47,21 +47,21 @@ export default class CarBody {
 
 		if (Settings.highQuality) {
 			const geometryHQ: THREE.BufferGeometry = await ThreeAssets.load(manager, [
-				require("../../models/back-lights-high.json"),
-				require("../../models/back-lights-glass-high.json"),
-				require("../../models/body-high.json"),
-				require("../../models/bumper-high.json"),
-				require("../../models/chrome-high.json"),
-				require("../../models/glass-dark-high.json"),
-				require("../../models/glass-high.json"),
-				require("../../models/head-lights-high.json"),
-				require("../../models/head-lights-glass-high.json"),
-				require("../../models/interior-details-high.json"),
-				require("../../models/interior-high.json"),
-				require("../../models/number-plates-high.json"),
-				require("../../models/plastic-high.json"),
-				require("../../models/roof-mirrors-high.json"),
-				require("../../models/seats-high.json")
+				"/static/models/back-lights-high.json",
+				"/static/models/back-lights-glass-high.json",
+				"/static/models/body-high.json",
+				"/static/models/bumper-high.json",
+				"/static/models/chrome-high.json",
+				"/static/models/glass-dark-high.json",
+				"/static/models/glass-high.json",
+				"/static/models/head-lights-high.json",
+				"/static/models/head-lights-glass-high.json",
+				"/static/models/interior-details-high.json",
+				"/static/models/interior-high.json",
+				"/static/models/number-plates-high.json",
+				"/static/models/plastic-high.json",
+				"/static/models/roof-mirrors-high.json",
+				"/static/models/seats-high.json"
 			]);
 
 			this.updateLOD(this.body, geometryHQ, ThreeMaterialsBody.materials, 0);

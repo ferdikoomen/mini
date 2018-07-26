@@ -6,6 +6,7 @@ import ThreeAssets from "./ThreeAssets";
 import ThreeMaterialsPaint from "./ThreeMaterialsPaint";
 import ThreeMaterialsScene from "./ThreeMaterialsScene";
 import Settings from "./Settings";
+import { MeshMaterialType } from "three/three-core";
 
 
 export default class SceneColors {
@@ -31,7 +32,7 @@ export default class SceneColors {
 	public static async load(manager: THREE.LoadingManager): Promise<void> {
 
 		const geometry: THREE.BufferGeometry = await ThreeAssets.load(manager, [
-			require("../../models/colors.json")
+			"/static/models/colors.json"
 		]);
 
 		const width: number = 2.4;
@@ -134,7 +135,7 @@ export default class SceneColors {
 		});
 	}
 
-	private static create(geometry: THREE.BufferGeometry, material: THREE.Material, position: number): THREE.Mesh {
+	private static create(geometry: THREE.BufferGeometry, material: THREE.MeshMaterialType, position: number): THREE.Mesh {
 		const mesh: THREE.Mesh = new THREE.Mesh(geometry, material);
 		mesh.receiveShadow = true;
 		mesh.matrixAutoUpdate = false;

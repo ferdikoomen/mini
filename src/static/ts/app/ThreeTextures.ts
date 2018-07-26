@@ -19,29 +19,29 @@ export default class ThreeTextures {
 		this.textureLoader = new THREE.TextureLoader(manager);
 
 		this.enviromentMap = this.cubeTextureloader.load([
-			require("../../gfx/cubemap_right.png"),
-			require("../../gfx/cubemap_left.png"),
-			require("../../gfx/cubemap_top.png"),
-			require("../../gfx/cubemap_bottom.png"),
-			require("../../gfx/cubemap_front.png"),
-			require("../../gfx/cubemap_back.png")
+			"/static/gfx/cubemap_right.png",
+			"/static/gfx/cubemap_left.png",
+			"/static/gfx/cubemap_top.png",
+			"/static/gfx/cubemap_bottom.png",
+			"/static/gfx/cubemap_front.png",
+			"/static/gfx/cubemap_back.png"
 		]);
 
 		this.enviromentMapBlurred = this.cubeTextureloader.load([
-			require("../../gfx/cubemap_right_blur.png"),
-			require("../../gfx/cubemap_left_blur.png"),
-			require("../../gfx/cubemap_top_blur.png"),
-			require("../../gfx/cubemap_bottom_blur.png"),
-			require("../../gfx/cubemap_front_blur.png"),
-			require("../../gfx/cubemap_back_blur.png")
+			"/static/gfx/cubemap_right_blur.png",
+			"/static/gfx/cubemap_left_blur.png",
+			"/static/gfx/cubemap_top_blur.png",
+			"/static/gfx/cubemap_bottom_blur.png",
+			"/static/gfx/cubemap_front_blur.png",
+			"/static/gfx/cubemap_back_blur.png"
 		]);
 
-		this.noiseTexture = this.textureLoader.load(require("../../gfx/noise.png"));
+		this.noiseTexture = this.textureLoader.load("/static/gfx/noise.png");
 		this.noiseTexture.repeat.set(100, 100);
 		this.noiseTexture.wrapS = THREE.RepeatWrapping;
 		this.noiseTexture.wrapT = THREE.RepeatWrapping;
 
-		this.noiseTextureLarge = this.textureLoader.load(require("../../gfx/noise.png"));
+		this.noiseTextureLarge = this.textureLoader.load("/static/gfx/noise.png");
 		this.noiseTextureLarge.repeat.set(2, 2);
 		this.noiseTextureLarge.wrapS = THREE.RepeatWrapping;
 		this.noiseTextureLarge.wrapT = THREE.RepeatWrapping;

@@ -11,8 +11,8 @@ export default class ControlsKeyboard {
 
 
 	private static enabled: boolean = false;
-	private static steeringIncrement: number = 0.025;
-	private static steeringDecrement: number = 0.05;
+	private static steeringIncrement: number = 0.02;
+	private static steeringDecrement: number = 0.04;
 	private static steeringClamp: number = 0.5;
 	private static maxEngineForce: number = 4000;
 	private static maxBreakingForce: number = 100;
@@ -108,12 +108,12 @@ export default class ControlsKeyboard {
 		}
 
 		if (e.code === "KeyT") {
-			this.maxEngineForce = 8000;
+			this.maxEngineForce = 4000;
 			this.maxBreakingForce = 150;
 			this.maxSpeed = 240;
-			CarPhysics.fourWheelDrive = true;
-			this.toGold(ThreeMaterialsBody.chrome);
+			CarPhysics.turbo();
 			this.toGold(ThreeMaterialsBody.body);
+			this.toGold(ThreeMaterialsBody.chrome);
 			this.toGold(ThreeMaterialsBody.roofMirrors);
 			this.toGold(ThreeMaterialsWheels.wheel);
 		}

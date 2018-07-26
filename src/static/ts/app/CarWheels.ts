@@ -31,10 +31,10 @@ export default class CarWheels {
 		this.rearRight.rotateY(Math.PI);
 
 		const geometryLQ: THREE.BufferGeometry = await ThreeAssets.load(manager, [
-			require("../../models/tire-low.json"),
-			require("../../models/wheel-low.json"),
-			require("../../models/wheel-cap-low.json"),
-			require("../../models/brake-disc-low.json")
+			"/static/models/tire-low.json",
+			"/static/models/wheel-low.json",
+			"/static/models/wheel-cap-low.json",
+			"/static/models/brake-disc-low.json"
 		]);
 
 		this.updateLOD(this.frontLeft, geometryLQ, ThreeMaterialsWheels.materials, 8);
@@ -47,10 +47,10 @@ export default class CarWheels {
 
 		if (Settings.highQuality) {
 			const geometryHQ: THREE.BufferGeometry = await ThreeAssets.load(manager, [
-				require("../../models/tire-high.json"),
-				require("../../models/wheel-high.json"),
-				require("../../models/wheel-cap-high.json"),
-				require("../../models/brake-disc-high.json")
+				"/static/models/tire-high.json",
+				"/static/models/wheel-high.json",
+				"/static/models/wheel-cap-high.json",
+				"/static/models/brake-disc-high.json"
 			]);
 			this.updateLOD(this.frontLeft, geometryHQ, ThreeMaterialsWheels.materials, 0);
 			this.updateLOD(this.frontRight, geometryHQ, ThreeMaterialsWheels.materials, 0);

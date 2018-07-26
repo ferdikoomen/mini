@@ -12,6 +12,10 @@ export default class CarPhysics {
 	public static body: THREE.Object3D;
 	public static wheels: THREE.Object3D[] = [];
 	public static vehicle: Ammo.btRaycastVehicle;
+	public static wheelInfoFrontRight: Ammo.btWheelInfo;
+	public static wheelInfoFrontLeft: Ammo.btWheelInfo;
+	public static wheelInfoRearRight: Ammo.btWheelInfo;
+	public static wheelInfoRearLeft: Ammo.btWheelInfo;
 	public static chassisWidth: number = 1.6;
 	public static chassisHeight: number = 0.6;
 	public static chassisLength: number = 3.8;
@@ -30,8 +34,6 @@ export default class CarPhysics {
 	public static suspensionCompression: number = 5;
 	public static suspensionRestLength: number = 0.45;
 	public static rollInfluence: number = 0.01;
-
-
 	public static engineForce: number = 0;
 	public static breakingForce: number = 0;
 	public static vehicleSteering: number = 0;
@@ -77,6 +79,26 @@ export default class CarPhysics {
 		this.vehicle.resetSuspension();
 	}
 
+	public static turbo(): void {
+		this.fourWheelDrive = true;
+		this.suspensionStiffness = 100.0;
+		this.suspensionDamping = 5;
+		this.suspensionCompression = 7;
+		this.wheelInfoFrontLeft.set_m_suspensionStiffness(this.suspensionStiffness);
+		this.wheelInfoFrontLeft.set_m_wheelsDampingRelaxation(this.suspensionDamping);
+		this.wheelInfoFrontLeft.set_m_wheelsDampingCompression(this.suspensionCompression);
+		this.wheelInfoFrontRight.set_m_suspensionStiffness(this.suspensionStiffness);
+		this.wheelInfoFrontRight.set_m_wheelsDampingRelaxation(this.suspensionDamping);
+		this.wheelInfoFrontRight.set_m_wheelsDampingCompression(this.suspensionCompression);
+		this.wheelInfoRearLeft.set_m_suspensionStiffness(this.suspensionStiffness);
+		this.wheelInfoRearLeft.set_m_wheelsDampingRelaxation(this.suspensionDamping);
+		this.wheelInfoRearLeft.set_m_wheelsDampingCompression(this.suspensionCompression);
+		this.wheelInfoRearRight.set_m_suspensionStiffness(this.suspensionStiffness);
+		this.wheelInfoRearRight.set_m_wheelsDampingRelaxation(this.suspensionDamping);
+		this.wheelInfoRearRight.set_m_wheelsDampingCompression(this.suspensionCompression);
+		this.vehicle.resetSuspension();
+	}
+
 
 	public static getSpeed(): number {
 		return this.vehicle.getCurrentSpeedKmHour();
@@ -92,6 +114,7 @@ export default class CarPhysics {
 
 			this.vehicle.applyEngineForce(this.engineForce, FRONT_LEFT);
 			this.vehicle.applyEngineForce(this.engineForce, FRONT_RIGHT);
+
 			if (this.fourWheelDrive) {
 				this.vehicle.applyEngineForce(this.engineForce, REAR_LEFT);
 				this.vehicle.applyEngineForce(this.engineForce, REAR_RIGHT);
@@ -103,6 +126,11 @@ export default class CarPhysics {
 			this.vehicle.setBrake(this.breakingForce, REAR_RIGHT);
 			this.vehicle.setSteeringValue(this.vehicleSteering, FRONT_LEFT);
 			this.vehicle.setSteeringValue(this.vehicleSteering, FRONT_RIGHT);
+
+			if (this.fourWheelDrive) {
+				this.vehicle.setSteeringValue(this.vehicleSteering / 5, REAR_LEFT);
+				this.vehicle.setSteeringValue(this.vehicleSteering / 5, REAR_RIGHT);
+			}
 
 			let transform: Ammo.btTransform = this.vehicle.getChassisWorldTransform();
 			let position: Ammo.btVector3 = transform.getOrigin();
@@ -150,14 +178,14 @@ export default class CarPhysics {
 		this.vehicle.setCoordinateSystem(0, 1, 2);
 		world.addAction(this.vehicle);
 
-		this.createVehicleWheel(tuning, true, new Ammo.btVector3(this.wheelHalfTrackFront, this.wheelAxisHeightFront, this.wheelAxisPositionFront), this.wheelRadiusFront);
-		this.createVehicleWheel(tuning, true, new Ammo.btVector3(-this.wheelHalfTrackFront, this.wheelAxisHeightFront, this.wheelAxisPositionFront), this.wheelRadiusFront);
-		this.createVehicleWheel(tuning, false, new Ammo.btVector3(this.wheelHalfTrackBack, this.wheelAxisHeightBack, this.wheelAxisPositionBack), this.wheelRadiusBack);
-		this.createVehicleWheel(tuning, false, new Ammo.btVector3(-this.wheelHalfTrackBack, this.wheelAxisHeightBack, this.wheelAxisPositionBack), this.wheelRadiusBack);
+		this.wheelInfoFrontRight = this.createVehicleWheel(tuning, true, new Ammo.btVector3(this.wheelHalfTrackFront, this.wheelAxisHeightFront, this.wheelAxisPositionFront), this.wheelRadiusFront);
+		this.wheelInfoFrontLeft = this.createVehicleWheel(tuning, true, new Ammo.btVector3(-this.wheelHalfTrackFront, this.wheelAxisHeightFront, this.wheelAxisPositionFront), this.wheelRadiusFront);
+		this.wheelInfoRearRight = this.createVehicleWheel(tuning, false, new Ammo.btVector3(this.wheelHalfTrackBack, this.wheelAxisHeightBack, this.wheelAxisPositionBack), this.wheelRadiusBack);
+		this.wheelInfoRearLeft = this.createVehicleWheel(tuning, false, new Ammo.btVector3(-this.wheelHalfTrackBack, this.wheelAxisHeightBack, this.wheelAxisPositionBack), this.wheelRadiusBack);
 	}
 
 
-	private static createVehicleWheel(tuning: Ammo.btVehicleTuning, front: boolean, position: Ammo.btVector3, radius: number): void {
+	private static createVehicleWheel(tuning: Ammo.btVehicleTuning, front: boolean, position: Ammo.btVector3, radius: number): Ammo.btWheelInfo {
 		const info: Ammo.btWheelInfo = this.vehicle.addWheel(
 			position,
 			new Ammo.btVector3(0, -1, 0),
@@ -173,5 +201,7 @@ export default class CarPhysics {
 		info.set_m_wheelsDampingCompression(this.suspensionCompression);
 		info.set_m_frictionSlip(this.friction);
 		info.set_m_rollInfluence(this.rollInfluence);
+
+		return info;
 	}
 }
