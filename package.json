@@ -6,7 +6,6 @@
 	"homepage": "https://mini.madebyferdi.com",
 	"private": true,
 	"license": "MIT",
-	"repository": "https://bitbucket.madebyferdi.com/scm/mad/mini.git",
 	"scripts": {
 		"clean": "rimraf deploy node_modules/.cache",
 		"build": "webpack --config webpack.dev.config.js",
