@@ -1,12 +1,9 @@
 import * as THREE from "three";
 import * as TWEEN from "@tweenjs/tween.js";
-
-
 import ThreeAssets from "./ThreeAssets";
 import ThreeMaterialsPaint from "./ThreeMaterialsPaint";
 import ThreeMaterialsScene from "./ThreeMaterialsScene";
 import Settings from "./Settings";
-import { MeshMaterialType } from "three/three-core";
 
 
 export default class SceneColors {
@@ -135,7 +132,7 @@ export default class SceneColors {
 		});
 	}
 
-	private static create(geometry: THREE.BufferGeometry, material: THREE.MeshMaterialType, position: number): THREE.Mesh {
+	private static create(geometry: THREE.BufferGeometry, material: THREE.Material, position: number): THREE.Mesh {
 		const mesh: THREE.Mesh = new THREE.Mesh(geometry, material);
 		mesh.receiveShadow = true;
 		mesh.matrixAutoUpdate = false;

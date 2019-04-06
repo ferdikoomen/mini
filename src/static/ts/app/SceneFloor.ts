@@ -1,7 +1,5 @@
 import * as THREE from "three";
 import * as TWEEN from "@tweenjs/tween.js";
-
-
 import ThreeMaterialsScene from "./ThreeMaterialsScene";
 import Settings from "./Settings";
 

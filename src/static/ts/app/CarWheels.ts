@@ -1,6 +1,4 @@
 import * as THREE from "three";
-
-
 import ThreeAssets from "./ThreeAssets";
 import ThreeMaterialsWheels from "./ThreeMaterialsWheels";
 import Settings from "./Settings";
@@ -81,7 +79,7 @@ export default class CarWheels {
 	}
 
 	private static updateLOD(lod: THREE.LOD, geometry: THREE.BufferGeometry, materials: THREE.Material[], distance: number): void {
-		const mesh: THREE.Mesh = new THREE.Mesh(geometry, <any> materials);
+		const mesh: THREE.Mesh = new THREE.Mesh(geometry, <any>materials);
 		mesh.castShadow = true;
 		mesh.matrixAutoUpdate = false;
 		lod.addLevel(mesh, distance);

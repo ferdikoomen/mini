@@ -5,6 +5,7 @@ import ThreeMaterialsWheels from "./ThreeMaterialsWheels";
 import ThreeTextures from "./ThreeTextures";
 import Settings from "./Settings";
 import {positionInRange} from "./Utils";
+import * as THREE from "three";
 
 
 export default class ControlsKeyboard {

@@ -1,6 +1,4 @@
 import * as THREE from "three";
-
-
 import CarBody from "./CarBody";
 import CarWheels from "./CarWheels";
 import Physics from "./Physics";

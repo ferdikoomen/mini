@@ -1,6 +1,4 @@
 import * as THREE from "three";
-
-
 import Settings from "./Settings";
 
 
@@ -11,6 +9,7 @@ export default class ThreeTextures {
 	public static enviromentMapBlurred: THREE.Texture;
 	public static noiseTexture: THREE.Texture;
 	public static noiseTextureLarge: THREE.Texture;
+
 	private static cubeTextureloader: THREE.CubeTextureLoader;
 	private static textureLoader: THREE.TextureLoader;
 

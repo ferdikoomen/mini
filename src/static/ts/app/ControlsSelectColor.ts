@@ -1,7 +1,5 @@
 import * as THREE from "three";
 import * as TWEEN from "@tweenjs/tween.js";
-
-
 import ThreeMaterialsBody from "./ThreeMaterialsBody";
 import ThreeMaterialsScene from "./ThreeMaterialsScene";
 import SceneColors from "./SceneColors";
@@ -69,7 +67,7 @@ export default class ControlsSelectColor {
 		this.elementPrev.className = Settings.color < 12 ? "show" : "";
 
 		const colorMesh: THREE.Mesh = SceneColors.items[Settings.color];
-		const colorMaterial: THREE.MeshPhysicalMaterial = <THREE.MeshPhysicalMaterial> colorMesh.material;
+		const colorMaterial: THREE.MeshPhysicalMaterial = <THREE.MeshPhysicalMaterial>colorMesh.material;
 
 		ThreeMaterialsScene.road.color.r = colorMaterial.color.r;
 		ThreeMaterialsScene.road.color.g = colorMaterial.color.g;

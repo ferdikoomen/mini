@@ -4,7 +4,6 @@ const webpack = require("webpack");
 const path = require("path");
 const autoprefixer = require("autoprefixer");
 
-const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -121,15 +120,13 @@ module.exports = {
 			DEBUG: true
 		}),
 
-		new CleanWebpackPlugin(["deploy"], {
-			verbose: true
-		}),
-
 		new CopyWebpackPlugin([
+			{from: "src/robots.txt", to: "."},
+			{from: "src/sitemap.xml", to: "."},
 			{from: "src/static/js/*.*", to: "./static/js/", flatten: true},
 			{from: "src/static/gfx/*.*", to: "./static/gfx/", flatten: true},
 			{from: "src/static/models/*.*", to: "./static/models/", flatten: true},
-			{from: "node_modules/three/build/three.min.js", to: "./static/js/", flatten: true}
+			{from: "node_modules/three/build/three.js", to: "./static/js/three.js"}
 		]),
 
 		new MiniCssExtractPlugin({

@@ -1,6 +1,4 @@
 import * as THREE from "three";
-
-
 import CarPhysics from "./CarPhysics";
 import Settings from "./Settings";
 import {positionInRange} from "./Utils";
@@ -68,6 +66,6 @@ export default class ControlsOrientation {
 	}
 
 	private static onScreenOrientationChange(): void {
-		this.screenOrientation = <number> window.orientation || 0;
+		this.screenOrientation = <number>window.orientation || 0;
 	}
 }

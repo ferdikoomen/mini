@@ -1,6 +1,4 @@
 import * as TWEEN from "@tweenjs/tween.js";
-
-
 import Preloader from "./Preloader";
 import ThreeStage from "./ThreeStage";
 import ThreeCamera from "./ThreeCamera";

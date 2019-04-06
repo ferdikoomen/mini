@@ -1,7 +1,5 @@
 import * as THREE from "three";
 import * as TWEEN from "@tweenjs/tween.js";
-
-
 import Settings from "./Settings";
 import {getTheta} from "./Utils";
 
@@ -289,7 +287,7 @@ export default class ThreeCamera {
 
 	private static onMouseWheel(e: MouseWheelEvent): void {
 		if (this.enabled && this.enableZoom && (this.state === this.states.NONE || this.state === this.states.ROTATE)) {
-			e.preventDefault();
+			// e.preventDefault();
 			e.stopPropagation();
 
 			if (e.deltaY < 0) {

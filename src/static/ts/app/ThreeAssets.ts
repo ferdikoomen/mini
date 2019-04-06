@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import Loader from "./Loader";
 
 
 export default class ThreeAssets {
@@ -14,10 +15,12 @@ export default class ThreeAssets {
 				const matrix: THREE.Matrix4 = new THREE.Matrix4();
 
 				urls.forEach((url: string, index: number): void => {
-					new THREE.JSONLoader(manager).load(url, (geometry: THREE.Geometry): void => {
+					new Loader(manager).load(url, (geometry: THREE.Geometry): void => {
 						geometryMerged.merge(geometry, matrix, index);
 						geometry.dispose();
 						if (!--length) {
+							geometryMerged.computeFaceNormals();
+							geometryMerged.computeBoundingSphere();
 							geometryBuffer.fromGeometry(geometryMerged);
 							geometryMerged.dispose();
 							resolve(geometryBuffer);

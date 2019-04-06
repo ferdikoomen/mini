@@ -1,6 +1,4 @@
 import * as THREE from "three";
-
-
 import Settings from "./Settings";
 
 
