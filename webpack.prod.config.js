@@ -6,12 +6,13 @@ const autoprefixer = require("autoprefixer");
 const cssnano = require("cssnano");
 
 
+const TerserPlugin = require("terser-webpack-plugin");
 const BrotliGzipPlugin = require("brotli-gzip-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
-const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 
 module.exports = {
@@ -46,7 +47,29 @@ module.exports = {
 	module: {
 		rules: [{
 			test: /\.ts$/,
-			loader: "ts-loader"
+			use: [{
+				loader: "babel-loader",
+				options: {
+					cacheDirectory: false,
+					cacheCompression: false,
+					presets: [
+						["@babel/env", {
+							modules: false,
+							useBuiltIns: 'entry',
+							corejs: 2
+						}]
+					]
+				}
+			}, {
+				loader: "ts-loader",
+				options: {
+					onlyCompileBundledFiles: true,
+					transpileOnly: true,
+					compilerOptions: {
+						sourceMap: false
+					}
+				}
+			}]
 		}, {
 			test: /\.scss$/,
 			use: [{
@@ -98,13 +121,18 @@ module.exports = {
 			DEBUG: false
 		}),
 
+		new ForkTsCheckerWebpackPlugin({
+			workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
+			async: false
+		}),
+
 		new CopyWebpackPlugin([
-			{from: "src/robots.txt", to: "."},
-			{from: "src/sitemap.xml", to: "."},
-			{from: "src/static/js/*.*", to: "./static/js/", flatten: true},
-			{from: "src/static/gfx/*.*", to: "./static/gfx/", flatten: true},
-			{from: "src/static/models/*.*", to: "./static/models/", flatten: true},
-			{from: "node_modules/three/build/three.min.js", to: "./static/js/three.js"}
+			{ from: "src/robots.txt", to: "." },
+			{ from: "src/sitemap.xml", to: "." },
+			{ from: "src/static/js/*.*", to: "./static/js/", flatten: true },
+			{ from: "src/static/gfx/*.*", to: "./static/gfx/", flatten: true },
+			{ from: "src/static/models/*.*", to: "./static/models/", flatten: true },
+			{ from: "node_modules/three/build/three.min.js", to: "./static/js/three.js" }
 		]),
 
 		new MiniCssExtractPlugin({
@@ -146,16 +174,19 @@ module.exports = {
 	],
 
 	optimization: {
+		splitChunks: false,
 		minimizer: [
-			new UglifyJSPlugin({
-				parallel: true, // !important to speedup the build process
+			new TerserPlugin({
+				parallel: true,
 				cache: true,
-				uglifyOptions: {
+				sourceMap: false,
+				terserOptions: {
 					mangle: true,
 					output: {
 						comments: false
 					},
 					compress: {
+						arrows: true,
 						booleans: true,
 						comparisons: true,
 						conditionals: true,
@@ -174,7 +205,7 @@ module.exports = {
 					}
 				}
 			})
-		],
+		]
 	},
 
 	performance: {

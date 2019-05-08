@@ -9,7 +9,7 @@ const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
-
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 module.exports = {
 
@@ -59,7 +59,30 @@ module.exports = {
 			exclude: /node_modules/
 		}, {
 			test: /\.ts$/,
-			loader: "ts-loader"
+			use: [{
+				loader: "babel-loader",
+				options: {
+					cacheDirectory: false,
+					cacheCompression: false,
+					presets: [
+						["@babel/env", {
+							modules: false,
+							useBuiltIns: 'entry',
+							corejs: 2
+						}]
+					]
+				}
+			}, {
+				loader: "ts-loader",
+				options: {
+					experimentalWatchApi: true,
+					onlyCompileBundledFiles: true,
+					transpileOnly: true,
+					compilerOptions: {
+						sourceMap: true
+					}
+				}
+			}]
 		}, {
 			test: /\.scss$/,
 			use: [{
@@ -120,13 +143,18 @@ module.exports = {
 			DEBUG: true
 		}),
 
+		new ForkTsCheckerWebpackPlugin({
+			workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
+			async: false
+		}),
+
 		new CopyWebpackPlugin([
-			{from: "src/robots.txt", to: "."},
-			{from: "src/sitemap.xml", to: "."},
-			{from: "src/static/js/*.*", to: "./static/js/", flatten: true},
-			{from: "src/static/gfx/*.*", to: "./static/gfx/", flatten: true},
-			{from: "src/static/models/*.*", to: "./static/models/", flatten: true},
-			{from: "node_modules/three/build/three.js", to: "./static/js/three.js"}
+			{ from: "src/robots.txt", to: "." },
+			{ from: "src/sitemap.xml", to: "." },
+			{ from: "src/static/js/*.*", to: "./static/js/", flatten: true },
+			{ from: "src/static/gfx/*.*", to: "./static/gfx/", flatten: true },
+			{ from: "src/static/models/*.*", to: "./static/models/", flatten: true },
+			{ from: "node_modules/three/build/three.js", to: "./static/js/three.js" }
 		]),
 
 		new MiniCssExtractPlugin({

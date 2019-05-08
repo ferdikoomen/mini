@@ -8,7 +8,7 @@ export default class Preloader {
 
 
 	public static init(): void {
-		const element: HTMLElement = document.getElementById("preloader");
+		const element: HTMLElement = document.getElementById("preloader")!;
 		element.style.opacity = "1";
 
 		this.manager.onProgress = (item: any, loaded: number, total: number): void => {

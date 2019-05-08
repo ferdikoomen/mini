@@ -11,11 +11,13 @@ export default class Loader {
 
 	public load(url: string, onLoad: (geometry: THREE.Geometry) => void): void {
 		const loader: THREE.FileLoader = new THREE.FileLoader(this.manager);
-		loader.load(url, (text: string): void => {
-			const json: any = JSON.parse(text);
-			const geometry: THREE.Geometry = new THREE.Geometry();
-			this.parse(json, geometry);
-			onLoad(geometry);
+		loader.load(url, (text: string | ArrayBuffer): void => {
+			if (typeof text === 'string') {
+				const json: any = JSON.parse(text);
+				const geometry: THREE.Geometry = new THREE.Geometry();
+				this.parse(json, geometry);
+				onLoad(geometry);
+			}
 		});
 	}
 

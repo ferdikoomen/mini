@@ -45,7 +45,7 @@ export default class ControlsKeyboard {
 	public static init(): void {
 		if (!Settings.mobile) {
 			this.enabled = true;
-			document.getElementById("controls-drive-info").style.opacity = "1";
+			document.getElementById("controls-drive-info")!.style.opacity = "1";
 			window.addEventListener("keydown", e => this.keyDown(e), false);
 			window.addEventListener("keyup", e => this.keyUp(e), false);
 		}

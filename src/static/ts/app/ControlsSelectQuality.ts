@@ -12,9 +12,9 @@ export default class ControlsSelectQuality {
 
 	public static wait(): Promise<void> {
 		return new Promise<void>((resolve: () => void): void => {
-			this.elementLow = document.getElementById("controls-quality-low");
-			this.elementHigh = document.getElementById("controls-quality-high");
-			this.elementGo = document.getElementById("controls-quality-go");
+			this.elementLow = document.getElementById("controls-quality-low")!;
+			this.elementHigh = document.getElementById("controls-quality-high")!;
+			this.elementGo = document.getElementById("controls-quality-go")!;
 
 			this.elementLow.className = "show";
 			this.elementHigh.className = "show";

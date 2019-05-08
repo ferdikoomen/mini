@@ -117,7 +117,7 @@ export default class CarBody {
 
 		ThreeMaterialsBody.headLights.emissive = new THREE.Color(0xFFFFFF);
 		ThreeMaterialsBody.headLights.emissiveIntensity = 1;
-		ThreeMaterialsBody.headLights.envMap = undefined;
+		ThreeMaterialsBody.headLights.envMap = null;
 		ThreeMaterialsBody.headLights.reflectivity = 0;
 		ThreeMaterialsBody.headLights.shininess = 0;
 

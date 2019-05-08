@@ -22,9 +22,9 @@ export default class ControlsSelectColor {
 		return new Promise<void>((resolve: () => void): void => {
 			this.enabled = true;
 
-			this.elementNext = document.getElementById("controls-color-next");
-			this.elementPrev = document.getElementById("controls-color-prev");
-			this.elementSelect = document.getElementById("controls-color-select");
+			this.elementNext = document.getElementById("controls-color-next")!;
+			this.elementPrev = document.getElementById("controls-color-prev")!;
+			this.elementSelect = document.getElementById("controls-color-select")!;
 
 			this.elementNext.className = "show";
 			this.elementPrev.className = "show";

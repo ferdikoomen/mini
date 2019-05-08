@@ -22,9 +22,9 @@ export default class ControlsTouch {
 		if (Settings.mobile) {
 			this.enabled = true;
 
-			this.elementSteer = document.getElementById("controls-drive-steer");
-			this.elementAccelerate = document.getElementById("controls-drive-accelerate");
-			this.elementReset = document.getElementById("controls-drive-reset");
+			this.elementSteer = document.getElementById("controls-drive-steer")!;
+			this.elementAccelerate = document.getElementById("controls-drive-accelerate")!;
+			this.elementReset = document.getElementById("controls-drive-reset")!;
 
 			this.elementSteer.className = "show";
 			this.elementAccelerate.className = "show";
