@@ -4,6 +4,7 @@
 		font-weight: $font-weight;
 		font-style: $font-style;
 		font-stretch: $font-stretch;
+		font-display: fallback;
 		src:
 			url("#{$font-path}.eot") format("embedded-opentype"),
 			url("#{$font-path}.woff2") format("woff2"),
