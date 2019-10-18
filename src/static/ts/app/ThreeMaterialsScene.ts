@@ -37,8 +37,8 @@ export default class ThreeMaterialsScene {
 			color: 0xFFFFFF,
 			metalness: 0,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 

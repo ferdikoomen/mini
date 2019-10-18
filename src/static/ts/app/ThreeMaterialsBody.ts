@@ -51,8 +51,8 @@ export default class ThreeMaterialsBody {
 			envMap: ThreeTextures.enviromentMap,
 			metalness: 0,
 			roughness: 0,
-			clearCoat: 1,
-			clearCoatRoughness: 0,
+			clearcoat: 1,
+			clearcoatRoughness: 0,
 			reflectivity: 0.5,
 			side: THREE.DoubleSide
 		});
@@ -62,8 +62,8 @@ export default class ThreeMaterialsBody {
 			envMap: ThreeTextures.enviromentMap,
 			metalness: 0,
 			roughness: 0,
-			clearCoat: 1,
-			clearCoatRoughness: 0,
+			clearcoat: 1,
+			clearcoatRoughness: 0,
 			reflectivity: 0.5
 		});
 
@@ -72,8 +72,8 @@ export default class ThreeMaterialsBody {
 			envMap: ThreeTextures.enviromentMap,
 			metalness: 0.8,
 			roughness: 0.1,
-			clearCoat: 1,
-			clearCoatRoughness: 0.1,
+			clearcoat: 1,
+			clearcoatRoughness: 0.1,
 			reflectivity: 0.8
 		});
 
@@ -161,8 +161,8 @@ export default class ThreeMaterialsBody {
 			envMap: ThreeTextures.enviromentMap,
 			metalness: 0,
 			roughness: 0,
-			clearCoat: 1,
-			clearCoatRoughness: 0,
+			clearcoat: 1,
+			clearcoatRoughness: 0,
 			reflectivity: 0.5
 		});
 

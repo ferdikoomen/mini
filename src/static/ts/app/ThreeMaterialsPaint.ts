@@ -26,8 +26,8 @@ export default class ThreeMaterialsPaint {
 			color: 0xed9300,
 			metalness: 0,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 
@@ -35,8 +35,8 @@ export default class ThreeMaterialsPaint {
 			color: 0x00a3d7,
 			metalness: 0,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 
@@ -44,8 +44,8 @@ export default class ThreeMaterialsPaint {
 			color: 0xa9a8a2,
 			metalness: 0.2,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 
@@ -53,8 +53,8 @@ export default class ThreeMaterialsPaint {
 			color: 0x8c1107,
 			metalness: 0.2,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 
@@ -62,8 +62,8 @@ export default class ThreeMaterialsPaint {
 			color: 0x06305e,
 			metalness: 0.2,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 
@@ -71,8 +71,8 @@ export default class ThreeMaterialsPaint {
 			color: 0x043f20,
 			metalness: 0.2,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 
@@ -80,8 +80,8 @@ export default class ThreeMaterialsPaint {
 			color: 0xFFFFFF,
 			metalness: 0.2,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 
@@ -89,8 +89,8 @@ export default class ThreeMaterialsPaint {
 			color: 0x050706,
 			metalness: 0.2,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 
@@ -98,8 +98,8 @@ export default class ThreeMaterialsPaint {
 			color: 0x35363d,
 			metalness: 0.2,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 
@@ -107,8 +107,8 @@ export default class ThreeMaterialsPaint {
 			color: 0xebe2cb,
 			metalness: 0.2,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 
@@ -116,8 +116,8 @@ export default class ThreeMaterialsPaint {
 			color: 0x797874,
 			metalness: 0.2,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 
@@ -125,8 +125,8 @@ export default class ThreeMaterialsPaint {
 			color: 0x021035,
 			metalness: 0.2,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 
@@ -134,8 +134,8 @@ export default class ThreeMaterialsPaint {
 			color: 0xa9111d,
 			metalness: 0.2,
 			roughness: 0.6,
-			clearCoat: 1,
-			clearCoatRoughness: 0.6,
+			clearcoat: 1,
+			clearcoatRoughness: 0.6,
 			reflectivity: 0
 		});
 

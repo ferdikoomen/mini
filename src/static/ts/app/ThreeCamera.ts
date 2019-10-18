@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import * as TWEEN from "@tweenjs/tween.js";
+import TWEEN from "@tweenjs/tween.js";
 import Settings from "./Settings";
 import {getTheta} from "./Utils";
 

@@ -37,8 +37,8 @@ export default class ThreeMaterialsWheels {
 			envMap: ThreeTextures.enviromentMap,
 			metalness: 0,
 			roughness: 0,
-			clearCoat: 1,
-			clearCoatRoughness: 0,
+			clearcoat: 1,
+			clearcoatRoughness: 0,
 			reflectivity: 0.3
 		});
 
@@ -47,8 +47,8 @@ export default class ThreeMaterialsWheels {
 			envMap: ThreeTextures.enviromentMapBlurred,
 			metalness: 0.8,
 			roughness: 0.6,
-			clearCoat: 0.8,
-			clearCoatRoughness: 0.5,
+			clearcoat: 0.8,
+			clearcoatRoughness: 0.5,
 			reflectivity: 0.7
 		});
 

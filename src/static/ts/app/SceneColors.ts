@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import * as TWEEN from "@tweenjs/tween.js";
+import TWEEN from "@tweenjs/tween.js";
 import ThreeAssets from "./ThreeAssets";
 import ThreeMaterialsPaint from "./ThreeMaterialsPaint";
 import ThreeMaterialsScene from "./ThreeMaterialsScene";

@@ -50,8 +50,6 @@ module.exports = {
 			use: [{
 				loader: "babel-loader",
 				options: {
-					cacheDirectory: false,
-					cacheCompression: false,
 					presets: [
 						["@babel/env", {
 							modules: false,

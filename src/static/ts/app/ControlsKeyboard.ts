@@ -140,8 +140,8 @@ export default class ControlsKeyboard {
 		material.color.b = 0;
 		material.metalness = 0.8;
 		material.roughness = 0.1;
-		material.clearCoat = 1;
-		material.clearCoatRoughness = 0.1;
+		material.clearcoat = 1;
+		material.clearcoatRoughness = 0.1;
 		material.reflectivity = 0.8;
 		material.envMap = ThreeTextures.enviromentMap;
 	}
