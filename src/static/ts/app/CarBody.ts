@@ -98,16 +98,16 @@ export default class CarBody {
 
 		if (Settings.highQuality) {
 			this.lightLeft.castShadow = true;
-			this.lightLeft.shadow.camera.near = 0.01
-			this.lightLeft.shadow.camera.far = 40
-			this.lightLeft.shadow.bias = 0.00005;
+			// this.lightLeft.shadow.camera.near = 0.01
+			// this.lightLeft.shadow.camera.far = 40
+			// this.lightLeft.shadow.bias = 0.00005;
 			this.lightLeft.shadow.mapSize.width = 1024;
 			this.lightLeft.shadow.mapSize.height = 1024;
 
 			this.lightRight.castShadow = true;
-			this.lightRight.shadow.camera.near = 0.01
-			this.lightRight.shadow.camera.far = 40
-			this.lightRight.shadow.bias = 0.00005;
+			// this.lightRight.shadow.camera.near = 0.01
+			// this.lightRight.shadow.camera.far = 40
+			// this.lightRight.shadow.bias = 0.00005;
 			this.lightRight.shadow.mapSize.width = 1024;
 			this.lightRight.shadow.mapSize.height = 1024;
 		}

@@ -43,9 +43,9 @@ export default class ThreeStage {
 		this.spotLight.target.updateMatrix();
 
 		if (Settings.highQuality) {
-			this.spotLight.shadow.camera.near = 1
-			this.spotLight.shadow.camera.far = 15
-			this.spotLight.shadow.bias = 0.00005;
+			// this.spotLight.shadow.camera.near = 1
+			// this.spotLight.shadow.camera.far = 15
+			// this.spotLight.shadow.bias = 0.00005;
 			this.spotLight.shadow.mapSize.width = 2048;
 			this.spotLight.shadow.mapSize.height = 2048;
 			this.spotLight.castShadow = true;
