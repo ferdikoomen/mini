@@ -14,8 +14,8 @@ export default class ControlsSelectColor {
 	private static elementNext: HTMLElement;
 	private static elementPrev: HTMLElement;
 	private static elementSelect: HTMLElement;
-	private static tweenColor: TWEEN.Tween;
-	private static tweenPosition: TWEEN.Tween;
+	private static tweenColor: any;
+	private static tweenPosition: any;
 
 
 	public static async wait(): Promise<void> {

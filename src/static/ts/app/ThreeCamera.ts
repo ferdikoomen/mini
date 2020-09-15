@@ -155,6 +155,7 @@ export default class ThreeCamera {
 				.onComplete((): void => {
 					resolve();
 				})
+				// @ts-ignore
 				.start();
 		});
 	}
@@ -171,8 +172,8 @@ export default class ThreeCamera {
 				targetZ: this.target.position.z,
 			})
 				.to({
-					theta: THREE.Math.degToRad(theta),
-					phi: THREE.Math.degToRad(phi),
+					theta: THREE.MathUtils.degToRad(theta),
+					phi: THREE.MathUtils.degToRad(phi),
 					radius: radius,
 					targetX: targetTo[0],
 					targetY: targetTo[1],
@@ -200,6 +201,7 @@ export default class ThreeCamera {
 					this.enabled = enabled;
 					resolve();
 				})
+				// @ts-ignore
 				.start();
 		});
 	}

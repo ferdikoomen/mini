@@ -7,6 +7,7 @@ import Settings from "./Settings";
 
 export function animateFog(fog: THREE.Fog, near: number, far: number, duration: number): Promise<void> {
 	return new Promise<void>((resolve: () => void): void => {
+
 		new TWEEN.Tween({
 			near: fog.near,
 			far: fog.far
@@ -23,6 +24,7 @@ export function animateFog(fog: THREE.Fog, near: number, far: number, duration: 
 			.onComplete((): void => {
 				resolve();
 			})
+			// @ts-ignore
 			.start();
 	});
 }
@@ -59,6 +61,7 @@ export function animateSpotLight(light: THREE.SpotLight, positionTo: number[], t
 			.onComplete((): void => {
 				resolve();
 			})
+			// @ts-ignore
 			.start();
 	});
 }

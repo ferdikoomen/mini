@@ -61,7 +61,7 @@ export default class CarPhysics {
 	public static reset(x: number, y: number, z: number, rotation: number): void {
 		const position: Ammo.btVector3 = new Ammo.btVector3(x, y + this.wheelRadiusFront * 2, z);
 		const quaternion: Ammo.btQuaternion = new Ammo.btQuaternion(0, 0, 0, 1);
-		quaternion.setRotation(new Ammo.btVector3(0, 1, 0), THREE.Math.degToRad(rotation));
+		quaternion.setRotation(new Ammo.btVector3(0, 1, 0), THREE.MathUtils.degToRad(rotation));
 
 		const transform: Ammo.btTransform = new Ammo.btTransform();
 		transform.setIdentity();

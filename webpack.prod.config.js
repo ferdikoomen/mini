@@ -7,7 +7,6 @@ const cssnano = require("cssnano");
 
 
 const TerserPlugin = require("terser-webpack-plugin");
-const BrotliGzipPlugin = require("brotli-gzip-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -80,17 +79,19 @@ module.exports = {
 			}, {
 				loader: "postcss-loader",
 				options: {
-					ident: "postcss",
-					plugins: [
-						autoprefixer(),
-						cssnano({
-							safe: true,
-							autoprefixer: false,
-							discardComments: {
-								removeAll: true
-							}
-						})
-					]
+					postcssOptions: {
+						ident: "postcss",
+						plugins: [
+							autoprefixer(),
+							cssnano({
+								safe: true,
+								autoprefixer: false,
+								discardComments: {
+									removeAll: true
+								}
+							})
+						]
+					}
 				}
 			}, {
 				loader: "sass-loader"
@@ -120,18 +121,19 @@ module.exports = {
 		}),
 
 		new ForkTsCheckerWebpackPlugin({
-			workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
 			async: false
 		}),
 
-		new CopyWebpackPlugin([
-			{ from: "src/robots.txt", to: "." },
-			{ from: "src/sitemap.xml", to: "." },
-			{ from: "src/static/js/*.*", to: "./static/js/", flatten: true },
-			{ from: "src/static/gfx/*.*", to: "./static/gfx/", flatten: true },
-			{ from: "src/static/models/*.*", to: "./static/models/", flatten: true },
-			{ from: "node_modules/three/build/three.min.js", to: "./static/js/three.js" }
-		]),
+		new CopyWebpackPlugin({
+			patterns: [
+				{ from: "src/robots.txt", to: "." },
+				{ from: "src/sitemap.xml", to: "." },
+				{ from: "src/static/js/*.*", to: "./static/js/", flatten: true },
+				{ from: "src/static/gfx/*.*", to: "./static/gfx/", flatten: true },
+				{ from: "src/static/models/*.*", to: "./static/models/", flatten: true },
+				{ from: "node_modules/three/build/three.min.js", to: "./static/js/three.js" }
+			]
+		}),
 
 		new MiniCssExtractPlugin({
 			filename: "static/css/[name].css"
@@ -160,14 +162,6 @@ module.exports = {
 
 		new ScriptExtHtmlWebpackPlugin({
 			defaultAttribute: "defer"
-		}),
-
-		new BrotliGzipPlugin({
-			asset: "[path].gz[query]",
-			algorithm: "gzip",
-			test: /\.(json|js|css|svg)$/,
-			threshold: 0,
-			minRatio: 0.8
 		})
 	],
 

@@ -18,7 +18,7 @@ export default class SceneObjects {
 		this.enabled = true;
 
 		const quaternion: THREE.Quaternion = new THREE.Quaternion(0, 0, 0, 1);
-		quaternion.setFromAxisAngle(new THREE.Vector3(1, 0, 0), THREE.Math.degToRad(-10));
+		quaternion.setFromAxisAngle(new THREE.Vector3(1, 0, 0), THREE.MathUtils.degToRad(-10));
 
 		this.createBox(new THREE.Vector3(0, -0.5, 40), quaternion, 2, 2, 8, 0, 1, ThreeMaterialsScene.road);
 		this.createBox(new THREE.Vector3(2, -0.5, 40), quaternion, 2, 2, 8, 0, 1, ThreeMaterialsScene.ramp);

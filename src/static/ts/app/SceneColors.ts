@@ -128,6 +128,7 @@ export default class SceneColors {
 					this.group.remove(mesh);
 					resolve();
 				})
+				// @ts-ignore
 				.start();
 		});
 	}
@@ -153,6 +154,7 @@ export default class SceneColors {
 			.onComplete((): void => {
 				this.group.remove(target);
 			})
+			// @ts-ignore
 			.start();
 	}
 

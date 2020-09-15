@@ -37,10 +37,10 @@ export default class ControlsOrientation {
 	public static update(): void {
 		if (this.enabled && this.deviceOrientation && Settings.mobile) {
 
-			const alpha: number = this.deviceOrientation.alpha ? THREE.Math.degToRad(this.deviceOrientation.alpha) : 0;
-			const beta: number = this.deviceOrientation.beta ? THREE.Math.degToRad(this.deviceOrientation.beta) : 0;
-			const gamma: number = this.deviceOrientation.gamma ? THREE.Math.degToRad(this.deviceOrientation.gamma) : 0;
-			const orient: number = this.screenOrientation ? THREE.Math.degToRad(this.screenOrientation) : 0;
+			const alpha: number = this.deviceOrientation.alpha ? THREE.MathUtils.degToRad(this.deviceOrientation.alpha) : 0;
+			const beta: number = this.deviceOrientation.beta ? THREE.MathUtils.degToRad(this.deviceOrientation.beta) : 0;
+			const gamma: number = this.deviceOrientation.gamma ? THREE.MathUtils.degToRad(this.deviceOrientation.gamma) : 0;
+			const orient: number = this.screenOrientation ? THREE.MathUtils.degToRad(this.screenOrientation) : 0;
 
 			this.euler.set(beta, alpha, -gamma, "YXZ");
 			this.quaternion.setFromEuler(this.euler);

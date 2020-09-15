@@ -148,6 +148,8 @@ export default class Application {
 
 
 	private static render(): void {
+
+		// @ts-ignore
 		TWEEN.update();
 
 		Physics.update();
