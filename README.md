@@ -37,26 +37,20 @@ The mobile version automatically selects the low-quality mode and displays an ov
 - <kbd>t</kbd> = Turbo mode
 - <kbd>spacebar</kbd> = Reset car
 
-## Requirements
-- [NodeJS v8.5](https://nodejs.org)
-
 ## Libraries
 - [Three.js](https://threejs.org)
 - [Emscripten](http://kripken.github.io/emscripten-site)
 - [Ammo.js](https://github.com/kripken/ammo.js)
 
 ## Install
-We use Yarn package manager to manage our dependencies. 
 ```shell
-curl -o- -L https://yarnpkg.com/install.sh | bash
 yarn install
 ```
 
 ## Run
 ```shell
-npm run build:server
+npm start
 ```
-Server will run on [localhost](http://localhost:8080)
 
 ## Release
 ```shell
