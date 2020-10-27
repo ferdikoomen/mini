@@ -29,7 +29,7 @@ module.exports = {
 	},
 
 	output: {
-		path: path.resolve(process.cwd(), "deploy"),
+		path: path.resolve(process.cwd(), "dist"),
 		publicPath: "/",
 		filename: "static/js/[name].js"
 	},
@@ -39,7 +39,7 @@ module.exports = {
 	devServer: {
 		port: 8080,
 		host: "0.0.0.0",
-		contentBase: path.resolve(process.cwd(), "deploy"),
+		contentBase: path.resolve(process.cwd(), "dist"),
 		historyApiFallback: true,
 		disableHostCheck: true,
 		inline: true,
@@ -176,6 +176,6 @@ module.exports = {
 	},
 
 	watchOptions: {
-		ignored: /node_modules|deploy/
+		ignored: /node_modules|dist/
 	},
 };

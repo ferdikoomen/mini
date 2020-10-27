@@ -1,4 +1,4 @@
-deploy
+dist
 model
 node_modules
 npm-debug.log*

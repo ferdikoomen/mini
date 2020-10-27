@@ -7,7 +7,7 @@
 	"private": true,
 	"license": "MIT",
 	"scripts": {
-		"clean": "rimraf deploy node_modules/.cache",
+		"clean": "rimraf dist node_modules/.cache",
 		"build": "webpack --config webpack.dev.config.js",
 		"start": "webpack-dev-server --config webpack.dev.config.js",
 		"release": "webpack -p --config webpack.prod.config.js"
