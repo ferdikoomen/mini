@@ -2,10 +2,10 @@
 	"compileOnSave": false,
 
 	"compilerOptions": {
-		"target": "es5",
+		"target": "es6",
 		"module": "es6",
 		"moduleResolution": "node",
-		"lib": ["es5", "es6", "dom", "webworker"],
+		"lib": ["es6", "dom", "webworker"],
 		"declaration": false,
 		"declarationMap": false,
 		"sourceMap": false,
@@ -14,14 +14,9 @@
 		"noImplicitAny": true,
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
-		"skipLibCheck": true,
 		"strict": true,
 		"strictNullChecks": true,
-		"importHelpers": false,
-		"forceConsistentCasingInFileNames": true,
 		"outDir": "./deploy"
 	},
 
