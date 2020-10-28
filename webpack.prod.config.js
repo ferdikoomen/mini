@@ -134,6 +134,12 @@ module.exports = {
 				outputPath: 'static/models/',
 				name: '[name].[ext]'
 			}
+		}, {
+			test: /\.glsl$/,
+			include: path.resolve(__dirname, 'src/static/shaders'),
+			use: [{
+				loader: 'raw-loader'
+			}]
 		}]
 	},
 
