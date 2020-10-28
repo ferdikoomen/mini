@@ -137,7 +137,7 @@ export default class CarBody {
 	}
 
 	private static updateLOD(lod: THREE.LOD, geometry: THREE.BufferGeometry, materials: THREE.Material[], distance: number): void {
-		const mesh: THREE.Mesh = new THREE.Mesh(geometry, <any>materials);
+		const mesh: THREE.Mesh = new THREE.Mesh(geometry, materials);
 		mesh.castShadow = true;
 		mesh.matrixAutoUpdate = false;
 		mesh.position.y = -0.6;

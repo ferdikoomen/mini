@@ -29,7 +29,7 @@ module.exports = {
 	},
 
 	output: {
-		path: path.resolve(process.cwd(), 'dist'),
+		path: path.resolve(__dirname, 'dist'),
 		publicPath: '/',
 		filename: 'static/js/[name].js'
 	},
@@ -39,7 +39,7 @@ module.exports = {
 	devServer: {
 		port: 8080,
 		host: '0.0.0.0',
-		contentBase: path.resolve(process.cwd(), 'dist'),
+		contentBase: path.resolve(__dirname, 'dist'),
 		historyApiFallback: true,
 		disableHostCheck: true,
 		inline: true,
@@ -58,6 +58,7 @@ module.exports = {
 			exclude: /node_modules/
 		}, {
 			test: /\.ts$/,
+			include: path.resolve(__dirname, 'src/static/ts'),
 			use: [{
 				loader: 'babel-loader',
 				options: {
@@ -82,6 +83,7 @@ module.exports = {
 			}]
 		}, {
 			test: /\.scss$/,
+			include: path.resolve(__dirname, 'src/static/scss'),
 			use: [{
 				loader: MiniCssExtractPlugin.loader,
 			}, {
@@ -104,6 +106,7 @@ module.exports = {
 			}]
 		}, {
 			test: /\.(eot|otf|ttf|woff|woff2)$/,
+			include: path.resolve(__dirname, 'src/static/fonts'),
 			loader: 'file-loader',
 			options: {
 				publicPath: '/static/fonts/',
@@ -112,7 +115,7 @@ module.exports = {
 			}
 		}, {
 			test: /\.(jpg|png|webp|gif|svg|ico)$/,
-			include: path.resolve(process.cwd(), 'src/static/gfx'),
+			include: path.resolve(__dirname, 'src/static/gfx'),
 			loader: 'file-loader',
 			options: {
 				publicPath: '/static/gfx/',
@@ -121,7 +124,7 @@ module.exports = {
 			}
 		}, {
 			test: /\.js$/,
-			include: path.resolve(process.cwd(), 'src/static/js'),
+			include: path.resolve(__dirname, 'src/static/js'),
 			loader: 'file-loader',
 			options: {
 				publicPath: '/static/js/',
@@ -130,13 +133,19 @@ module.exports = {
 			}
 		}, {
 			test: /\.json$/,
-			include: path.resolve(process.cwd(), 'src/static/models'),
+			include: path.resolve(__dirname, 'src/static/models'),
 			loader: 'file-loader',
 			options: {
 				publicPath: '/static/models/',
 				outputPath: 'static/models/',
 				name: '[name].[ext]'
 			}
+		}, {
+			test: /\.glsl$/,
+			include: path.resolve(__dirname, 'src/static/shaders'),
+			use: [{
+				loader: 'raw-loader'
+			}]
 		}]
 	},
 

@@ -7,6 +7,7 @@ import ThreeMaterialsScene from "./ThreeMaterialsScene";
 import ThreeMaterialsBody from "./ThreeMaterialsBody";
 import ThreeMaterialsPaint from "./ThreeMaterialsPaint";
 import ThreeMaterialsWheels from "./ThreeMaterialsWheels";
+import ThreeMaterialsSpecial from "./ThreeMaterialsSpecial";
 import Physics from "./Physics";
 import CarBody from "./CarBody";
 import CarWheels from "./CarWheels";
@@ -37,6 +38,7 @@ export default class Application {
 		Preloader.init();
 
 		ThreeTextures.load(Preloader.manager);
+		ThreeMaterialsSpecial.load();
 		ThreeMaterialsScene.load();
 		ThreeMaterialsBody.load();
 		ThreeMaterialsPaint.load();

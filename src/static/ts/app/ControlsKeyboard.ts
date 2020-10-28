@@ -6,6 +6,7 @@ import ThreeTextures from "./ThreeTextures";
 import Settings from "./Settings";
 import {positionInRange} from "./Utils";
 import * as THREE from "three";
+import ThreeMaterialsSpecial from "./ThreeMaterialsSpecial";
 
 
 export default class ControlsKeyboard {
@@ -117,6 +118,11 @@ export default class ControlsKeyboard {
 			this.toGold(ThreeMaterialsBody.chrome);
 			this.toGold(ThreeMaterialsBody.roofMirrors);
 			this.toGold(ThreeMaterialsWheels.wheel);
+		}
+
+		if (e.code === "KeyX") {
+			ThreeMaterialsBody.materials.fill(ThreeMaterialsSpecial.xray);
+			ThreeMaterialsWheels.materials.fill(ThreeMaterialsSpecial.xray);
 		}
 
 		if (e.code === "KeyP") {

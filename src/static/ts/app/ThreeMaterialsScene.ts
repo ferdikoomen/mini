@@ -19,14 +19,14 @@ export default class ThreeMaterialsScene {
 			side: THREE.BackSide
 		});
 
-		this.floor = new THREE.MeshPhongMaterial(<any>{
+		this.floor = new THREE.MeshPhongMaterial({
 			color: 0x111111,
 			specular: 0x111111,
 			shininess: 0,
 			reflectivity: 0
 		});
 
-		this.ramp = new THREE.MeshPhongMaterial(<any>{
+		this.ramp = new THREE.MeshPhongMaterial({
 			color: 0x111111,
 			specular: 0x111111,
 			shininess: 0,
