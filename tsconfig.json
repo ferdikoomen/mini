@@ -19,9 +19,13 @@
 		"strictNullChecks": true,
 		"outDir": "./dist"
 	},
+	
+	"files": [
+		"./src/static/typings/Ammo.d.ts",
+		"./src/static/typings/glsl.d.ts"
+	],
 
 	"include": [
-		"./src/static/typings/Ammo.d.ts",
 		"./src/static/ts/**/*.ts"
 	]
 }

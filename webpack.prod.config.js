@@ -1,56 +1,56 @@
-"use strict";
+'use strict';
 
-const webpack = require("webpack");
-const path = require("path");
-const autoprefixer = require("autoprefixer");
-const cssnano = require("cssnano");
+const webpack = require('webpack');
+const path = require('path');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 
 
-const TerserPlugin = require("terser-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 
 module.exports = {
 
-	mode: "production",
+	mode: 'production',
 
 	bail: true,
 
 	entry: {
-		"main": [
-			"./src/static/ts/main.ts",
+		'main': [
+			'./src/static/ts/main.ts',
 		]
 	},
 
 	externals: {
-		three: "THREE",
-		Ammo: "Ammo"
+		three: 'THREE',
+		Ammo: 'Ammo'
 	},
 
 	output: {
-		path: path.resolve(process.cwd(), "dist"),
-		publicPath: "/",
-		filename: "static/js/[name].js"
+		path: path.resolve(process.cwd(), 'dist'),
+		publicPath: '/',
+		filename: 'static/js/[name].js'
 	},
 
 	devtool: false,
 
 	resolve: {
-		extensions: [".ts", ".js", ".scss"]
+		extensions: ['.ts', '.js', '.scss']
 	},
 
 	module: {
 		rules: [{
 			test: /\.ts$/,
 			use: [{
-				loader: "babel-loader",
+				loader: 'babel-loader',
 				options: {
 					presets: [
-						["@babel/env", {
+						['@babel/env', {
 							modules: false,
 							useBuiltIns: 'entry',
 							corejs: 2
@@ -58,7 +58,7 @@ module.exports = {
 					]
 				}
 			}, {
-				loader: "ts-loader",
+				loader: 'ts-loader',
 				options: {
 					onlyCompileBundledFiles: true,
 					transpileOnly: true,
@@ -72,15 +72,15 @@ module.exports = {
 			use: [{
 				loader: MiniCssExtractPlugin.loader,
 			}, {
-				loader: "css-loader",
+				loader: 'css-loader',
 				options: {
 					importLoaders: 1
 				}
 			}, {
-				loader: "postcss-loader",
+				loader: 'postcss-loader',
 				options: {
 					postcssOptions: {
-						ident: "postcss",
+						ident: 'postcss',
 						plugins: [
 							autoprefixer(),
 							cssnano({
@@ -94,29 +94,49 @@ module.exports = {
 					}
 				}
 			}, {
-				loader: "sass-loader"
+				loader: 'sass-loader'
 			}]
 		}, {
 			test: /\.(eot|otf|ttf|woff|woff2)$/,
-			loader: "file-loader?publicPath=/static/fonts/&outputPath=static/fonts/&name=[name].[ext]"
+			loader: 'file-loader',
+			options: {
+				publicPath: '/static/fonts/',
+				outputPath: 'static/fonts/',
+				name: '[name].[ext]'
+			}
 		}, {
 			test: /\.(jpg|png|webp|gif|svg|ico)$/,
-			include: path.resolve(process.cwd(), "src/static/gfx"),
-			loader: "file-loader?publicPath=/static/gfx/&outputPath=static/gfx/&name=[name].[ext]"
+			include: path.resolve(process.cwd(), 'src/static/gfx'),
+			loader: 'file-loader',
+			options: {
+				publicPath: '/static/gfx/',
+				outputPath: 'static/gfx/',
+				name: '[name].[ext]'
+			}
 		}, {
 			test: /\.js$/,
-			include: path.resolve(process.cwd(), "src/static/js"),
-			loader: "file-loader?publicPath=/static/js/&outputPath=static/js/&name=[name].[ext]"
+			include: path.resolve(process.cwd(), 'src/static/js'),
+			loader: 'file-loader',
+			options: {
+				publicPath: '/static/js/',
+				outputPath: 'static/js/',
+				name: '[name].[ext]'
+			}
 		}, {
 			test: /\.json$/,
-			include: path.resolve(process.cwd(), "src/static/models"),
-			loader: "file-loader?publicPath=/static/models/&outputPath=static/models/&name=[name].[ext]"
+			include: path.resolve(process.cwd(), 'src/static/models'),
+			loader: 'file-loader',
+			options: {
+				publicPath: '/static/models/',
+				outputPath: 'static/models/',
+				name: '[name].[ext]'
+			}
 		}]
 	},
 
 	plugins: [
 		new webpack.EnvironmentPlugin({
-			NODE_ENV: "production",
+			NODE_ENV: 'production',
 			DEBUG: false
 		}),
 
@@ -126,22 +146,22 @@ module.exports = {
 
 		new CopyWebpackPlugin({
 			patterns: [
-				{ from: "src/robots.txt", to: "." },
-				{ from: "src/sitemap.xml", to: "." },
-				{ from: "src/static/js/*.*", to: "./static/js/", flatten: true },
-				{ from: "src/static/gfx/*.*", to: "./static/gfx/", flatten: true },
-				{ from: "src/static/models/*.*", to: "./static/models/", flatten: true },
-				{ from: "node_modules/three/build/three.min.js", to: "./static/js/three.js" }
+				{from: 'src/robots.txt', to: '.'},
+				{from: 'src/sitemap.xml', to: '.'},
+				{from: 'src/static/js/*.*', to: './static/js/', flatten: true},
+				{from: 'src/static/gfx/*.*', to: './static/gfx/', flatten: true},
+				{from: 'src/static/models/*.*', to: './static/models/', flatten: true},
+				{from: 'node_modules/three/build/three.min.js', to: './static/js/three.js'}
 			]
 		}),
 
 		new MiniCssExtractPlugin({
-			filename: "static/css/[name].css"
+			filename: 'static/css/[name].css'
 		}),
 
 		new HtmlWebpackPlugin({
-			template: "src/index.html",
-			filename: "index.html",
+			template: 'src/index.html',
+			filename: 'index.html',
 			hash: false,
 			inject: true,
 			compile: true,
@@ -156,12 +176,12 @@ module.exports = {
 				minifyJS: true,
 				minifyCSS: true
 			},
-			chunksSortMode: "manual",
-			chunks: ["main"]
+			chunksSortMode: 'manual',
+			chunks: ['main']
 		}),
 
 		new ScriptExtHtmlWebpackPlugin({
-			defaultAttribute: "defer"
+			defaultAttribute: 'defer'
 		})
 	],
 
@@ -170,8 +190,6 @@ module.exports = {
 		minimizer: [
 			new TerserPlugin({
 				parallel: true,
-				cache: true,
-				sourceMap: false,
 				terserOptions: {
 					mangle: true,
 					output: {
