@@ -1,11 +1,9 @@
 {
-	"compileOnSave": false,
-
 	"compilerOptions": {
-		"target": "es6",
+		"target": "es2017",
 		"module": "es6",
 		"moduleResolution": "node",
-		"lib": ["es6", "dom", "webworker"],
+		"lib": ["es6", "es2017", "dom", "webworker"],
 		"declaration": false,
 		"declarationMap": false,
 		"sourceMap": false,
@@ -19,7 +17,7 @@
 		"strictNullChecks": true,
 		"outDir": "./dist"
 	},
-	
+
 	"files": [
 		"./src/static/typings/Ammo.d.ts",
 		"./src/static/typings/glsl.d.ts"
