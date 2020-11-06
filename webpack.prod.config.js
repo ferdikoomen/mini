@@ -37,6 +37,8 @@ module.exports = {
 
 	devtool: false,
 
+	stats: 'minimal',
+
 	resolve: {
 		extensions: ['.ts', '.js', '.scss']
 	},
