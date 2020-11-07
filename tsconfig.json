@@ -7,14 +7,15 @@
 		"declaration": false,
 		"declarationMap": false,
 		"sourceMap": false,
+		"strict": true,
+		"strictNullChecks": true,
+		"skipLibCheck": true,
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
 		"noImplicitAny": true,
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
 		"allowSyntheticDefaultImports": true,
-		"strict": true,
-		"strictNullChecks": true,
 		"outDir": "./dist"
 	},
 
@@ -25,5 +26,9 @@
 
 	"include": [
 		"./src/static/ts/**/*.ts"
+	],
+
+	"exclude": [
+		"node_modules"
 	]
 }
