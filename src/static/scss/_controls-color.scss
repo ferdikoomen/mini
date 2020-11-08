@@ -1,27 +1,27 @@
 #controls-color-next {
-	top: 50%;
-	margin-top: -30px;
-	left: 30px;
+    top: 50%;
+    margin-top: -30px;
+    left: 30px;
 
-	&::before {
-		content: "⇦";
-	}
+    &::before {
+        content: "⇦";
+    }
 }
 
 #controls-color-prev {
-	top: 50%;
-	margin-top: -30px;
-	right: 30px;
+    top: 50%;
+    margin-top: -30px;
+    right: 30px;
 
-	&::before {
-		content: "⇨";
-	}
+    &::before {
+        content: "⇨";
+    }
 }
 
 #controls-color-select {
-	bottom: 30px;
-	width: 200px;
-	left: 50%;
-	margin-left: -100px;
+    bottom: 30px;
+    width: 200px;
+    left: 50%;
+    margin-left: -100px;
 }
 

@@ -1,17 +1,16 @@
 @mixin font-import($font-family, $font-path, $font-weight: normal, $font-style: normal, $font-stretch: normal) {
-	@font-face {
-		font-family: $font-family;
-		font-weight: $font-weight;
-		font-style: $font-style;
-		font-stretch: $font-stretch;
-		font-display: fallback;
-		src:
-			url("#{$font-path}.eot") format("embedded-opentype"),
-			url("#{$font-path}.woff2") format("woff2"),
-			url("#{$font-path}.woff") format("woff"),
-			url("#{$font-path}.otf") format("opentype"),
-			url("#{$font-path}.ttf") format("truetype");
-	}
+    @font-face {
+        font-family: $font-family;
+        font-weight: $font-weight;
+        font-style: $font-style;
+        font-stretch: $font-stretch;
+        font-display: fallback;
+        src: url("#{$font-path}.eot") format("embedded-opentype"),
+        url("#{$font-path}.woff2") format("woff2"),
+        url("#{$font-path}.woff") format("woff"),
+        url("#{$font-path}.otf") format("opentype"),
+        url("#{$font-path}.ttf") format("truetype");
+    }
 }
 
 @include font-import("Source Sans Pro", "../fonts/source-sans-pro/SourceSansPro-ExtraLight", 200, normal, normal);

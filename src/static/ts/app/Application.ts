@@ -1,168 +1,150 @@
-import TWEEN from "@tweenjs/tween.js";
-import Preloader from "./Preloader";
-import ThreeStage from "./ThreeStage";
-import ThreeCamera from "./ThreeCamera";
-import ThreeTextures from "./ThreeTextures";
-import ThreeMaterialsScene from "./ThreeMaterialsScene";
-import ThreeMaterialsBody from "./ThreeMaterialsBody";
-import ThreeMaterialsPaint from "./ThreeMaterialsPaint";
-import ThreeMaterialsWheels from "./ThreeMaterialsWheels";
-import ThreeMaterialsSpecial from "./ThreeMaterialsSpecial";
-import Physics from "./Physics";
-import CarBody from "./CarBody";
-import CarWheels from "./CarWheels";
-import CarPhysics from "./CarPhysics";
-import ControlsSelectQuality from "./ControlsSelectQuality";
-import ControlsSelectColor from "./ControlsSelectColor";
-import ControlsKeyboard from "./ControlsKeyboard";
-import ControlsTouch from "./ControlsTouch";
-import SceneFloor from "./SceneFloor";
-import SceneColors from "./SceneColors";
-import SceneObjects from "./SceneObjects";
-import Settings from "./Settings";
-import {animateFog, animateSpotLight} from "./Animate";
+import TWEEN from '@tweenjs/tween.js';
 
+import { animateFog, animateSpotLight } from './Animate';
+import CarBody from './CarBody';
+import CarPhysics from './CarPhysics';
+import CarWheels from './CarWheels';
+import ControlsKeyboard from './ControlsKeyboard';
+import ControlsSelectColor from './ControlsSelectColor';
+import ControlsSelectQuality from './ControlsSelectQuality';
+import ControlsTouch from './ControlsTouch';
+import Physics from './Physics';
+import Preloader from './Preloader';
+import SceneColors from './SceneColors';
+import SceneFloor from './SceneFloor';
+import SceneObjects from './SceneObjects';
+import Settings from './Settings';
+import ThreeCamera from './ThreeCamera';
+import ThreeMaterialsBody from './ThreeMaterialsBody';
+import ThreeMaterialsPaint from './ThreeMaterialsPaint';
+import ThreeMaterialsScene from './ThreeMaterialsScene';
+import ThreeMaterialsSpecial from './ThreeMaterialsSpecial';
+import ThreeMaterialsWheels from './ThreeMaterialsWheels';
+import ThreeStage from './ThreeStage';
+import ThreeTextures from './ThreeTextures';
 
 export default class Application {
+    public static async start(): Promise<void> {
+        if (Settings.mobile) {
+            document.body.className = 'ready mobile';
+        } else {
+            document.body.className = 'ready desktop';
+        }
 
-	public static async start(): Promise<void> {
+        await ControlsSelectQuality.wait();
 
-		if (Settings.mobile) {
-			document.body.className = "ready mobile";
-		} else {
-			document.body.className = "ready desktop";
-		}
+        Preloader.init();
 
-		await ControlsSelectQuality.wait();
+        ThreeTextures.load(Preloader.manager);
+        ThreeMaterialsSpecial.load();
+        ThreeMaterialsScene.load();
+        ThreeMaterialsBody.load();
+        ThreeMaterialsPaint.load();
+        ThreeMaterialsWheels.load();
 
-		Preloader.init();
+        ThreeStage.init();
+        ThreeCamera.init();
+        ThreeStage.scene.add(ThreeCamera.target);
+        ThreeStage.render(ThreeCamera.camera);
 
-		ThreeTextures.load(Preloader.manager);
-		ThreeMaterialsSpecial.load();
-		ThreeMaterialsScene.load();
-		ThreeMaterialsBody.load();
-		ThreeMaterialsPaint.load();
-		ThreeMaterialsWheels.load();
+        SceneFloor.init();
 
-		ThreeStage.init();
-		ThreeCamera.init();
-		ThreeStage.scene.add(ThreeCamera.target);
-		ThreeStage.render(ThreeCamera.camera);
+        window.addEventListener(
+            'resize',
+            (): void => {
+                ThreeCamera.resize();
+                ThreeStage.resize();
+            },
+            false
+        );
 
-		SceneFloor.init();
+        window.addEventListener(
+            'orientationchange',
+            (): void => {
+                setTimeout((): void => {
+                    ThreeCamera.resize();
+                    ThreeStage.resize();
+                }, 100);
+            },
+            false
+        );
 
-		window.addEventListener("resize", (): void => {
-			ThreeCamera.resize();
-			ThreeStage.resize();
-		}, false);
+        await Promise.all([SceneColors.load(Preloader.manager), CarBody.load(Preloader.manager), CarWheels.load(Preloader.manager)]);
 
-		window.addEventListener("orientationchange", (): void => {
-			setTimeout((): void => {
-				ThreeCamera.resize();
-				ThreeStage.resize();
-			}, 100);
-		}, false);
+        ThreeStage.scene.add(SceneColors.group);
+        ThreeStage.scene.add(CarBody.group);
+        ThreeStage.scene.add(CarWheels.frontLeft);
+        ThreeStage.scene.add(CarWheels.frontRight);
+        ThreeStage.scene.add(CarWheels.rearLeft);
+        ThreeStage.scene.add(CarWheels.rearRight);
 
-		await Promise.all([
-			SceneColors.load(Preloader.manager),
-			CarBody.load(Preloader.manager),
-			CarWheels.load(Preloader.manager)
-		]);
+        CarBody.setPosition(0, 0, 0);
+        CarWheels.setPosition(0, 0, 0);
 
-		ThreeStage.scene.add(SceneColors.group);
-		ThreeStage.scene.add(CarBody.group);
-		ThreeStage.scene.add(CarWheels.frontLeft);
-		ThreeStage.scene.add(CarWheels.frontRight);
-		ThreeStage.scene.add(CarWheels.rearLeft);
-		ThreeStage.scene.add(CarWheels.rearRight);
+        CarBody.update(ThreeCamera.camera);
+        CarWheels.update(ThreeCamera.camera);
+        ThreeStage.render(ThreeCamera.camera);
 
-		CarBody.setPosition(0, 0, 0);
-		CarWheels.setPosition(0, 0, 0);
+        ThreeCamera.camera.position.set(0, 100, 28);
+        ThreeCamera.target.position.set(0, 100, 0);
 
-		CarBody.update(ThreeCamera.camera);
-		CarWheels.update(ThreeCamera.camera);
-		ThreeStage.render(ThreeCamera.camera);
+        this.loop();
 
-		ThreeCamera.camera.position.set(0, 100, 28);
-		ThreeCamera.target.position.set(0, 100, 0);
+        await animateFog(ThreeStage.fog, 100, 250, 2000);
 
-		this.loop();
+        await ThreeCamera.animatePosition([0, 2, 28], [0, 2, 0], 5000);
 
-		await animateFog(ThreeStage.fog, 100, 250, 2000);
+        await ThreeCamera.animatePosition([0, 1.2, 6], [0, 0.45, 0], 500);
 
-		await ThreeCamera.animatePosition(
-			[0, 2, 28],
-			[0, 2, 0],
-			5000
-		);
+        ThreeCamera.enableZoom = true;
+        ThreeCamera.enableRotate = true;
+        ThreeCamera.enablePan = false;
 
-		await ThreeCamera.animatePosition(
-			[0, 1.2, 6],
-			[0, 0.45, 0],
-			500
-		);
+        Physics.init();
 
-		ThreeCamera.enableZoom = true;
-		ThreeCamera.enableRotate = true;
-		ThreeCamera.enablePan = false;
+        await ControlsSelectColor.wait();
 
-		Physics.init();
+        await SceneColors.hide();
 
-		await ControlsSelectColor.wait();
+        ThreeStage.scene.remove(SceneColors.group);
+        ThreeStage.scene.add(SceneFloor.floorLeft);
+        ThreeStage.scene.add(SceneFloor.floorRight);
+        ThreeStage.scene.add(SceneFloor.floorRoad);
+        SceneObjects.init();
+        CarPhysics.init();
+        this.render();
 
-		await SceneColors.hide();
+        await ThreeCamera.animateSpherical(180, 80, 7, [0, 1, 0], 2000);
+        ThreeCamera.setFollowTarget(CarBody.group);
 
-		ThreeStage.scene.remove(SceneColors.group);
-		ThreeStage.scene.add(SceneFloor.floorLeft);
-		ThreeStage.scene.add(SceneFloor.floorRight);
-		ThreeStage.scene.add(SceneFloor.floorRoad);
-		SceneObjects.init();
-		CarPhysics.init();
-		this.render();
+        await SceneFloor.show();
 
-		await ThreeCamera.animateSpherical(
-			180, 80, 7,
-			[0, 1, 0],
-			2000
-		);
-		ThreeCamera.setFollowTarget(CarBody.group);
+        await animateSpotLight(ThreeStage.spotLight, [0, 15, 40], [0, 0, 40], 4000);
 
-		await SceneFloor.show();
+        ThreeStage.spotLight.castShadow = false;
+        CarBody.lights();
+        ControlsTouch.init();
+        ControlsKeyboard.init();
+    }
 
-		await animateSpotLight(
-			ThreeStage.spotLight,
-			[0, 15, 40],
-			[0, 0, 40],
-			4000
-		);
+    private static loop(): void {
+        requestAnimationFrame(() => this.loop());
+        this.render();
+    }
 
-		ThreeStage.spotLight.castShadow = false;
-		CarBody.lights();
-		ControlsTouch.init();
-		ControlsKeyboard.init();
-	}
+    private static render(): void {
+        // @ts-ignore
+        TWEEN.update();
 
+        Physics.update();
+        ControlsTouch.update();
+        ControlsKeyboard.update();
+        CarPhysics.update();
+        ThreeCamera.update();
+        CarBody.update(ThreeCamera.camera);
+        CarWheels.update(ThreeCamera.camera);
+        SceneObjects.update();
 
-	private static loop(): void {
-		requestAnimationFrame(() => this.loop());
-		this.render();
-	}
-
-
-	private static render(): void {
-
-		// @ts-ignore
-		TWEEN.update();
-
-		Physics.update();
-		ControlsTouch.update();
-		ControlsKeyboard.update();
-		CarPhysics.update();
-		ThreeCamera.update();
-		CarBody.update(ThreeCamera.camera);
-		CarWheels.update(ThreeCamera.camera);
-		SceneObjects.update();
-
-		ThreeStage.render(ThreeCamera.camera);
-	}
+        ThreeStage.render(ThreeCamera.camera);
+    }
 }

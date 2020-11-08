@@ -1,34 +1,33 @@
 {
-	"compilerOptions": {
-		"target": "es2017",
-		"module": "es6",
-		"moduleResolution": "node",
-		"lib": ["es6", "es2017", "dom", "webworker"],
-		"declaration": false,
-		"declarationMap": false,
-		"sourceMap": false,
-		"strict": true,
-		"strictNullChecks": true,
-		"skipLibCheck": true,
-		"noImplicitReturns": true,
-		"noImplicitThis": true,
-		"noImplicitAny": true,
-		"noUnusedLocals": false,
-		"noUnusedParameters": false,
-		"allowSyntheticDefaultImports": true,
-		"outDir": "./dist"
-	},
+    "compilerOptions": {
+        "outDir": "./dist",
+        "target": "es2017",
+        "module": "es6",
+        "moduleResolution": "node",
+        "lib": ["es6", "es2017", "dom", "webworker"],
+        "declaration": false,
+        "declarationMap": false,
+        "sourceMap": false,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "skipLibCheck": true,
+        "allowSyntheticDefaultImports": true
+    },
 
-	"files": [
-		"./src/static/typings/Ammo.d.ts",
-		"./src/static/typings/glsl.d.ts"
-	],
+    "files": [
+        "./src/static/typings/Ammo.d.ts",
+        "./src/static/typings/glsl.d.ts"
+    ],
 
-	"include": [
-		"./src/static/ts/**/*.ts"
-	],
+    "include": [
+        "./src/static/ts/**/*.ts"
+    ],
 
-	"exclude": [
-		"node_modules"
-	]
+    "exclude": [
+        "node_modules"
+    ]
 }

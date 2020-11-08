@@ -1,52 +1,52 @@
 #controls-drive-steer {
-	bottom: 30px;
-	left: 30px;
-	width: 180px;
+    bottom: 30px;
+    left: 30px;
+    width: 180px;
 
-	&::before {
-		content: "⇦";
-		left: 5px;
-	}
+    &::before {
+        content: "⇦";
+        left: 5px;
+    }
 
-	&::after {
-		content: "⇨";
-		left: 115px;
-	}
+    &::after {
+        content: "⇨";
+        left: 115px;
+    }
 }
 
 #controls-drive-accelerate {
-	bottom: 30px;
-	right: 30px;
-	height: 180px;
+    bottom: 30px;
+    right: 30px;
+    height: 180px;
 
-	&::before {
-		content: "⇧";
-		top: 5px;
-	}
+    &::before {
+        content: "⇧";
+        top: 5px;
+    }
 
-	&::after {
-		content: "⇩";
-		top: 115px;
-	}
+    &::after {
+        content: "⇩";
+        top: 115px;
+    }
 }
 
 #controls-drive-reset {
-	top: 30px;
-	right: 30px;
+    top: 30px;
+    right: 30px;
 
-	&::before {
-		content: "↺";
-	}
+    &::before {
+        content: "↺";
+    }
 }
 
 #controls-drive-info {
-	bottom: 30px;
-	width: 100%;
-	max-width: 440px;
-	font-size: 20px;
-	font-family: $font-family;
-	font-weight: 600;
-	text-transform: uppercase;
-	transform: translateX(-50%);
-	left: 50%;
+    bottom: 30px;
+    width: 100%;
+    max-width: 440px;
+    font-size: 20px;
+    font-family: $font-family;
+    font-weight: 600;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+    left: 50%;
 }
