@@ -63,11 +63,11 @@ export default class ThreeCamera {
         document.addEventListener('contextmenu', e => this.onContextMenu(e), false);
         document.addEventListener('mousedown', e => this.onMouseDown(e), false);
         document.addEventListener('mousemove', e => this.onMouseMove(e), false);
-        document.addEventListener('mouseup', e => this.onMouseUp(e), false);
+        document.addEventListener('mouseup', () => this.onMouseUp(), false);
         document.addEventListener('wheel', e => this.onMouseWheel(e), false);
         document.addEventListener('touchstart', e => this.onTouchStart(e), false);
         document.addEventListener('touchmove', e => this.onTouchMove(e), false);
-        document.addEventListener('touchend', e => this.onTouchEnd(e), false);
+        document.addEventListener('touchend', () => this.onTouchEnd(), false);
     }
 
     public static resize(): void {
