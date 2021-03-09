@@ -17,7 +17,7 @@
         "prettier:fix": "prettier \"./src/**/*.ts\" --write"
     },
     "dependencies": {
-        "three": "0.126.1"
+        "three": "0.122.0"
     },
     "devDependencies": {
         "@babel/core": "7.13.10",
@@ -54,7 +54,6 @@
         "raw-loader": "4.0.2",
         "rimraf": "3.0.2",
         "sass-loader": "11.0.1",
-        "script-ext-html-webpack-plugin": "2.1.5",
         "source-map-loader": "2.0.1",
         "style-loader": "2.0.0",
         "terser": "5.6.0",
@@ -66,6 +65,9 @@
         "webpack-cli": "4.5.0",
         "webpack-dev-middleware": "4.1.0",
         "webpack-dev-server": "3.11.2"
+    },
+    "resolutions": {
+        "three": "0.122.0"
     },
     "browserslist": [
         "last 2 Chrome versions",

@@ -7,7 +7,6 @@ const autoprefixer = require('autoprefixer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 module.exports = {
 
@@ -146,10 +145,10 @@ module.exports = {
             patterns: [
                 {from: 'src/robots.txt', to: '.'},
                 {from: 'src/sitemap.xml', to: '.'},
-                {from: 'src/static/js/*.*', to: './static/js/', flatten: true},
-                {from: 'src/static/gfx/*.*', to: './static/gfx/', flatten: true},
-                {from: 'src/static/models/*.*', to: './static/models/', flatten: true},
-                {from: 'node_modules/three/build/three.js', to: './static/js/three.js'}
+                {from: 'src/static/js/*', to: 'static/js/[name][ext]'},
+                {from: 'src/static/gfx/*', to: 'static/gfx/[name][ext]'},
+                {from: 'src/static/models/*', to: 'static/models/[name][ext]'},
+                {from: 'node_modules/three/build/three.js', to: 'static/js/three.js'}
             ]
         }),
 
@@ -161,17 +160,13 @@ module.exports = {
             template: 'src/index.html',
             filename: 'index.html',
             hash: false,
-            inject: true,
+            inject: false,
             compile: true,
             cache: true,
             showErrors: true,
             minify: false,
             chunksSortMode: 'manual',
             chunks: ['main']
-        }),
-
-        new ScriptExtHtmlWebpackPlugin({
-            defaultAttribute: 'defer'
         })
     ],
 
