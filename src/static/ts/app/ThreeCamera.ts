@@ -286,7 +286,7 @@ export default class ThreeCamera {
         this.state = this.states.NONE;
     }
 
-    private static onMouseWheel(e: MouseWheelEvent): void {
+    private static onMouseWheel(e: WheelEvent): void {
         if (this.enabled && this.enableZoom && (this.state === this.states.NONE || this.state === this.states.ROTATE)) {
             // e.preventDefault();
             e.stopPropagation();
