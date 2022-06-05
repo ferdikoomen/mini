@@ -1,4 +1,4 @@
-declare function Ammo(): Promise<void>;
+declare function Ammo(): Promise<Ammo>;
 
 declare namespace Ammo {
     export class btVector3 {
