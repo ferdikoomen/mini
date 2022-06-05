@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 
 import CarPhysics from './CarPhysics';
-import Physics from './Physics';
 import Settings from './Settings';
 import ThreeMaterialsBody from './ThreeMaterialsBody';
 import ThreeMaterialsSpecial from './ThreeMaterialsSpecial';
@@ -119,19 +118,11 @@ export default class ControlsKeyboard {
             ThreeMaterialsBody.materials.fill(ThreeMaterialsSpecial.xray);
             ThreeMaterialsWheels.materials.fill(ThreeMaterialsSpecial.xray);
         }
-
-        if (e.code === 'KeyP') {
-            Physics.togglePause();
-        }
     }
 
     private static keyDown(e: KeyboardEvent): void {
         if (this.keysActions[e.code]) {
             this.actions[this.keysActions[e.code]] = true;
-        }
-
-        if (e.code === 'KeyN') {
-            Physics.step();
         }
     }
 

@@ -100,7 +100,7 @@ export default class Application {
         ThreeCamera.enableRotate = true;
         ThreeCamera.enablePan = false;
 
-        Physics.init();
+        await Physics.init();
 
         await ControlsSelectColor.wait();
 

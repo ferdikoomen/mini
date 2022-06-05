@@ -55,7 +55,7 @@ export default class ThreeStage {
         this.scene.add(this.spotLight.target);
 
         this.renderer = new THREE.WebGLRenderer({ antialias: Settings.highQuality });
-        this.renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
+        this.renderer.setPixelRatio(1);
         this.renderer.setSize(this.width, this.height);
         this.renderer.setClearColor(this.fog.color);
         this.renderer.autoClear = false;

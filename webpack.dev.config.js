@@ -15,7 +15,6 @@ module.exports = {
     entry: {
         'main': [
             './src/static/ts/main.ts',
-            'webpack-dev-server/client?http://localhost:8080'
         ]
     },
 
